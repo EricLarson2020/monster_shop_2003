@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Register Index Page", type: :feature do
   it "Can register a user" do
     visit "/merchants"
-    within ".topnav" do
+    within "nav" do
       click_link "register"
     end
     expect(current_path).to eql("/register")
@@ -15,7 +15,7 @@ RSpec.describe "Register Index Page", type: :feature do
     fill_in :email, with: "bob@gz.com"
     fill_in :password, with: "1234"
     fill_in :confirm_password, with: "1234"
-    click_button "Submit"
+    click_button "Create User"
     expect(current_path).to eql("/profile")
     expect(page).to have_content("You are now logged in Bob")
   end
