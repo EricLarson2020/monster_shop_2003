@@ -7,9 +7,15 @@ class UsersController < ApplicationController
   def create
 
     user = User.new(user_params)
+
     if user.save
       flash[:notice] = "You are now logged in #{params[:name]}"
       redirect_to "/profile"
+
+    else
+
+      flash[:notice] = user.errors.full_messages.join(". ").to_s
+      redirect_to "/register"
     end
   end
 
