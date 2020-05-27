@@ -5,11 +5,18 @@ class UsersController < ApplicationController
   end
 
   def create
-
+    #binding.pry
     user = User.new(user_params)
+    #binding.pry
     if user.save
+      
       flash[:notice] = "You are now logged in #{params[:name]}"
       redirect_to "/profile"
+
+    else
+
+      flash[:notice] = user.errors.full_messages.join(". ").to_s
+      redirect_to "/register"
     end
   end
 
@@ -21,7 +28,7 @@ class UsersController < ApplicationController
 
   def user_params
 
-    params.permit(:name, :address, :state, :city, :zip, :email, :password)
+    params.permit(:name, :address, :state, :city, :zip, :email, :password, :password_confirmation)
   end
 
 
