@@ -10,6 +10,11 @@ RSpec.describe "Items Index Page" do
 
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+      @tennis_ball = @brian.items.create(name: "Tennis Ball", description: "Great ball!", price: 5, image: "http://lovencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 40)
+      @racket = @brian.items.create(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10)
+      @bell = @meg.items.create(name: "Bell", description: "They will hear you comming", price: 30, image: "https://www.ri.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 9)
+      @helmet = @meg.items.create(name: "Helmet", description: "Keep that head of yours safe", price: 150, image: "https://www.ri.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 32)
+
     end
 
     it "all items or merchant names are links" do
@@ -50,6 +55,58 @@ RSpec.describe "Items Index Page" do
       expect(page).to_not have_content(@dog_bone.name)
       expect(page).to_not have_content(@dog_bone.description)
       expect(page).to_not have_content(@dog_bone.price)
+    end
+
+    it "user can see statistics for most popular and least popular items" do
+        visit "/items/#{@pull_toy.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@pull_toy.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@pull_toy.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@pull_toy.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@pull_toy.id}"
+        click_on "Add To Cart"
+
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+
+        visit "/items/#{@tennis_ball.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@tennis_ball.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@tennis_ball.id}"
+        click_on "Add To Cart"
+
+        visit "/items/#{@racket.id}"
+        click_on "Add To Cart"
+        visit "/items/#{@racket.id}"
+        click_on "Add To Cart"
+
+        visit "/items/#{@bell.id}"
+        click_on "Add To Cart"
+
+        visit "/items"
+
+        expect(page).to have_content("Pull Toy, Quantity: 5")
+        expect(page).to have_content("Gatorskins, Quantity: 4")
+        expect(page).to have_content("Tennis Ball, Quantity: 3")
+        expect(page).to have_content("Racket, Quantity: 2")
+        expect(page).to have_content("Bell, Quantity: 1")
+
+        # I see an area with statistics:
+        # - the top 5 most popular items by quantity purchased, plus the quantity bought
+        # - the bottom 5 least popular items, plus the quantity bought
+        #
+        # "Popularity" is determined by total quantity of that item ordered
+
     end
   end
 end
