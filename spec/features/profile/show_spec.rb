@@ -8,14 +8,14 @@ RSpec.describe "Profile Show Page" do
     city: "Denver",
     state: "Colorado",
     zip: 83243,
-    email: "jjjjj",
+    email: "jjjjj@hotmail.com",
     password: "3455",
     password_confirmation: "3455",
     role: 0
     })
 
     visit "/login"
-    fill_in :email, with: "jjjjj"
+    fill_in :email, with: "jjjjj@hotmail.com"
     fill_in :password, with: "3455"
     click_on "Submit"
     visit "/profile"
@@ -55,7 +55,7 @@ RSpec.describe "Profile Show Page" do
       fill_in :email, with: "new_email@aol.com"
 
       click_button("Submit Update")
-# save_and_open_page
+
       expect(current_path).to eq("/profile")
       expect(page).to have_content("Your profile has been updated")
       expect(page).to have_content("new name")
@@ -63,13 +63,7 @@ RSpec.describe "Profile Show Page" do
       expect(page).to have_content("new state")
       expect(page).to have_content(80110)
       expect(page).to have_content("new_email@aol.com")
-      expect(page).to have_no_content("new_email@aol.com")
-
-      
-
-
-
-
+      expect(page).to have_no_content("jjjjj@hotmail.com")
     end
   end
 end

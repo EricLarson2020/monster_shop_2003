@@ -11,13 +11,13 @@ class ProfileController < ApplicationController
   def update
     @user = current_user
     @user.update(user_params)
-    binding.pry
+
     if @user.save
-      flash[:success] = "Your profile has been updated"
+      flash[:notice] = "Your profile has been updated"
       redirect_to "/profile"
-    # else
-    #   flash[:error] = @user.errors.full_messages.to_s
-    #   render :edit
+    else
+      flash[:notice] = @user.errors.full_messages.to_s
+      render :edit
     end
   end
 
