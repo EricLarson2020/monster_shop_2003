@@ -65,7 +65,9 @@ RSpec.describe "Register Index Page", type: :feature do
       fill_in :password, with: "3455"
       click_on "Submit"
       visit "/"
+
       within ".topnav" do
+        expect(page).to have_content("Logged in as Jack")
         click_link("logout")
       end
       expect(current_path).to eql("/")

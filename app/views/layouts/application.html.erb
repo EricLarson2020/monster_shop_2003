@@ -9,14 +9,16 @@
   </head>
 
   <body>
+
     <nav class = "topnav">
       <%= link_to "Welcome Page", "/" %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
       <% if current_user  %>
+      <%= "Logged in as #{current_user.name}" %> <br>
       <%= link_to "Profile Page", "/profile" %>
-      <%= link_to "logout", "/logout" %>
+     <%= link_to  "logout", "/logout" %>
       <% else %>
       <%= link_to "register", "/register" %>
       <%= link_to "login", "/login" %>
