@@ -26,3 +26,25 @@
     <% end %>
   <% end %>
 </section>
+
+<% if !@merchant %>
+  <section class="statistics">
+    <h3>Statistics</h3>
+      <section class="top_five">
+        <h4>Top Five Orders</h4>
+        <% @top_five_order_items.each do |item| %>
+        <ul>
+          <p1><%= item.name %>, Quantity: <%= item.quantity %></p1>
+        </ul>
+        <% end %>
+      </section>
+      <section class="bottom_five">
+        <h4>Bottom Five Orders</h4>
+        <% @bottom_five_order_items.each do |item| %>
+        <ul>
+          <p1><%= item.name %>, Quantity: <%= item.quantity %></p1>
+        </ul>
+        <% end %>
+      </section>
+  </section>
+<% end  %>
