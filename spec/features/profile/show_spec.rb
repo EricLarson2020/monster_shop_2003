@@ -22,7 +22,7 @@ RSpec.describe "Profile Show Page" do
   end
 
   describe 'as a registered user when I visit my profile page' do
-    xit 'can see my profile data except password' do
+    it 'can see my profile data except password' do
       within '.user-info' do
         expect(page).to have_content(@jack.name)
         expect(page).to have_content(@jack.address)
@@ -32,10 +32,10 @@ RSpec.describe "Profile Show Page" do
         expect(page).to have_content(@jack.email)
         expect(page).to have_no_content(@jack.password)
       end
-      expect(page).to have_button("Edit My Profile")
+      expect(page).to have_link("Edit My Profile")
     end
 
-    xit 'when I click on edit profile, I can edit my information' do
+    it 'when I click on edit profile, I can edit my information' do
       click_link("Edit My Profile")
 
       expect(current_path).to eq("/profile/#{@jack.id}/edit")
@@ -96,7 +96,7 @@ RSpec.describe "Profile Show Page" do
       expect(page).to have_content("Email has already been taken")
     end
 
-    xit "can update password" do
+    it "can update password" do
       click_on("Edit My Password")
 
       expect(current_path).to eq("/password/#{@jack.id}/edit")
@@ -113,16 +113,16 @@ RSpec.describe "Profile Show Page" do
       click_on("Edit My Password")
       expect(current_path).to eq("/password/#{@jack.id}/edit")
 
-      fill_in :password, with: nil
-      fill_in :password_confirmation, with: nil
+      fill_in :password, with: ""
+      fill_in :password_confirmation, with: ""
       click_on("Submit")
-
+ 
       expect(current_path).to eq("/password/#{@jack.id}/edit")
      
-      expect(page).to have_content("Password can't be blank")
+      expect(page).to have_content("You are missing required fields")
     end
 
-    xit "cannot update with mismatched fields" do
+    it "cannot update with mismatched fields" do
       click_on("Edit My Password")
       expect(current_path).to eq("/password/#{@jack.id}/edit")
 
@@ -132,7 +132,7 @@ RSpec.describe "Profile Show Page" do
 
       expect(current_path).to eq("/password/#{@jack.id}/edit")
   
-      expect(page).to have_content("Password and password confirmation must match")
+      expect(page).to have_content("Password and confirmation must match")
     end
   end
 end

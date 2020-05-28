@@ -27,7 +27,6 @@ def create
       redirect_to "/register"
     elsif @user.save
       session[:id] = @user.id
-      @user.update(role: 0)
       session[:user_id] = @user.id
       flash[:notice] = "You are now logged in #{user_params[:name]}"
       redirect_to "/profile"
