@@ -30,8 +30,9 @@ RSpec.describe "Profile Show Page" do
         expect(page).to have_content(@jack.state)
         expect(page).to have_content(@jack.zip)
         expect(page).to have_content(@jack.email)
-        save_and_open_page
+        expect(page).to have_no_content(@jack.password)
       end
+      expect(page).to have_button("Edit My Profile")
     end
   end
 end

@@ -6,3 +6,5 @@
 <b>State:</b> <%= @user.state %><br/>
 <b>Zip:</b> <%= @user.zip %>
 </div>
+
+<%= button_to "Edit My Profile", "/profile/#{@user.id}/edit"%>
