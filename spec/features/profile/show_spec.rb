@@ -137,23 +137,3 @@ RSpec.describe "Profile Show Page" do
   end
 end
 
-# User Story 22, User Editing Profile Data must have unique Email address
-
-# As a registered user
-# When I attempt to edit my profile data
-# If I try to change my email address to one that belongs to another user
-# When I submit the form
-# Then I am returned to the profile edit page
-# And I see a flash message telling me that email address is already in use
-
-# User Story 21, User Can Edit their Password
-
-# As a registered user
-# When I visit my profile page
-# I see a link to edit my password
-# When I click on the link to edit my password
-# I see a form with fields for a new password, and a new password confirmation
-# When I fill in the same password in both fields
-# And I submit the form
-# Then I am returned to my profile page
-# And I see a flash message telling me that my password is updated

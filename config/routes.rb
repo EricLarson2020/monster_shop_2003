@@ -58,7 +58,4 @@ Rails.application.routes.draw do
   end
 
   resources :logout, only: [:index]
-
-
-
 end

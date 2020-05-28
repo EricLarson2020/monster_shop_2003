@@ -3,7 +3,6 @@ class PasswordController < ApplicationController
     @user = current_user
   end
 
-
   def update
     @user = current_user
     @user.update(password_params)
