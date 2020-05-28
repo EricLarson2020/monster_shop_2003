@@ -11,7 +11,7 @@ RSpec.describe "Profile Show Page" do
     email: "jjjjj",
     password: "3455",
     password_confirmation: "3455",
-    role: 2
+    role: 0
     })
 
     visit "/login"
@@ -34,12 +34,56 @@ RSpec.describe "Profile Show Page" do
       end
       expect(page).to have_button("Edit My Profile")
     end
+
+    it 'when I click on edit profile, I can edit my information' do
+      click_button("Edit My Profile")
+
+      expect(current_path).to eq("/profile/#{@jack.id}/edit")
+
+      expect(find_field('name').value).to eq "#{@jack.name}"
+      expect(find_field('address').value).to eq "#{@jack.address}"
+      expect(find_field('city').value).to eq "#{@jack.city}"
+      expect(find_field('state').value).to eq "#{@jack.state}"
+      expect(find_field('zip').value).to eq "#{@jack.zip}"
+      expect(find_field('email').value).to eq "#{@jack.email}"
+
+      fill_in :name, with: "new name"
+      fill_in :address, with: "new address"
+      fill_in :city, with: "new city"
+      fill_in :state, with: "new state"
+      fill_in :zip, with: 80110
+      fill_in :email, with: "new_email@aol.com"
+
+      click_button("Submit Update")
+# save_and_open_page
+      expect(current_path).to eq("/profile")
+      expect(page).to have_content("Your profile has been updated")
+      expect(page).to have_content("new name")
+      expect(page).to have_content("new address")
+      expect(page).to have_content("new state")
+      expect(page).to have_content(80110)
+      expect(page).to have_content("new_email@aol.com")
+      expect(page).to have_no_content("new_email@aol.com")
+
+      
+
+
+
+
+    end
   end
 end
 
-# User Story 19, User Profile Show Page
 
+# User Story 20, User Can Edit their Profile Data
 # As a registered user
 # When I visit my profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
+# I see a link to edit my profile data
+# When I click on the link to edit my profile data
+# I see a form like the registration page
+# The form is prepopulated with all my current information except my password
+# When I change any or all of that information
+# And I submit the form
+# Then I am returned to my profile page
+# And I see a flash message telling me that my data is updated
+# And I see my updated information
