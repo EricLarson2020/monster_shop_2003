@@ -17,7 +17,7 @@ class ProfileController < ApplicationController
       redirect_to "/profile"
     else
       flash[:notice] = @user.errors.full_messages.to_s
-      render :edit
+      redirect_to "/profile/#{@user.id}/edit"
     end
   end
 

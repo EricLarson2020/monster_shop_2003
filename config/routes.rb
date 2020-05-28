@@ -40,10 +40,11 @@ Rails.application.routes.draw do
   post "/users/new", to: "users#create"
 
   get "/profile", to: "profile#index"
-  post "/profile/:id/edit", to: "profile#edit"
+  get "/profile/:id/edit", to: "profile#edit"
   patch "/profile/:id", to: "profile#update"
 
   get "/password/:user_id/edit", to: "password#edit"
+  patch "/password/:user_id", to: "password#update"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
