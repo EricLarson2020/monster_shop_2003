@@ -25,4 +25,8 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  # def self.top_five
+  #   # items = Item.left_outer_joins(:order)
+  #   binding.pry
+  # end
 end
