@@ -50,7 +50,7 @@ RSpec.describe "Profile Index Page", type: :feature do
       click_on "Submit"
 
   end
-
+end
 
 #   User Story 27, User Profile displays Orders link
 #

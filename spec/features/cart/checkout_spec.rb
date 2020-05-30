@@ -27,6 +27,43 @@ RSpec.describe 'Cart show' do
 
       expect(current_path).to eq("/orders/new")
     end
+
+    it "if user is a visitor, when they visit their cart they are asked to checkin" do
+
+      visit "/cart"
+
+      expect(page).to have_content("Please register or login to finish the checkout process")
+      expect(page).to have_link("Register")
+      expect(page).to have_link("Login")
+      click_link "Register"
+      expect(current_path).to eql("/register")
+      visit "/cart"
+      click_link "Login"
+      expect(current_path).to eql("/login")
+    end
+
+    it "if registered user I do not see login message or links in cart page" do
+      jil = User.create!({
+      name: "Jack",
+      address: "333 Jack Blvd",
+      city: "Denver",
+      state: "Colorado",
+      zip: 83243,
+      email: "nbmv@hotmail.com",
+      password: "3455",
+      password_confirmation: "3455",
+      role: 0
+      })
+      visit "/login"
+      fill_in :email, with: "nbmv@hotmail.com"
+      fill_in :password, with: "3455"
+      click_on "Submit"
+      visit "/cart"
+      expect(page).to_not have_content("Please register or login to finish the checkout process")
+      expect(page).to_not have_link("Register")
+      expect(page).to_not have_link("Login")
+    end
+
   end
 
   describe 'When I havent added items to my cart' do
@@ -37,17 +74,7 @@ RSpec.describe 'Cart show' do
     end
   end
 
-  it "if user is a visitor, when they visit their cart they are asked to checkin" do
-    visit "/cart"
-    expect(page).to have_content("Please register or login to finish the checkout process")
-    expect(page).to have_link("Register")
-    expect(page).to have_link("Login")
-    click_link "Register"
-    expect(current_path).to eql("/register")
-    visit "/cart"
-    click_link "Login"
-    expect(current_path).to eql("/login")
-  end
+
 
 end
 
