@@ -33,7 +33,7 @@ class Item <ApplicationRecord
   end
 
   def subtotal
-
+    quantity * price
   end
   # def self.top_five
   #   # items = Item.left_outer_joins(:order)
