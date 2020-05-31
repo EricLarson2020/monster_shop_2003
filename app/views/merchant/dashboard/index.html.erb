@@ -1,0 +1,15 @@
+<h1>Merchant Dashboard</h1>
+
+<%= link_to "View Merchant Items", "/merchant/items" %>
+
+
+  <div class=merchant-info>
+      <h2>Merchant:</h2>
+      <%= @merchant.name %>
+      <br />
+      <%= @merchant.address %>
+      <%= @merchant.city %>
+      <%= @merchant.state %>
+      <%= @merchant.zip %>
+
+    </div>
