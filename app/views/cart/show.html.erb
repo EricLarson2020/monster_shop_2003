@@ -31,6 +31,10 @@
       <td>
         <center>
           <p><%=quantity%></p>
+          <%= form_tag "/cart/#{item.id}/update", method: :patch do %>
+          <p><%= number_field_tag 'quantity', '1', min: 1, max: 10 %></p>
+          <%= submit_tag 'Update Quantity' %>
+          <% end %>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>
