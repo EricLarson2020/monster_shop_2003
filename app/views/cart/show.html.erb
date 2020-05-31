@@ -35,6 +35,10 @@
           <p><%= number_field_tag 'quantity', '1', min: 1, max: "#{item.inventory - 1}" %></p>
           <%= submit_tag 'Update Quantity' %>
           <% end %>
+          <%= form_tag "/cart/#{item.id}/decrease-quantity", method: :patch do %>
+          <p><%= number_field_tag 'quantity_decrease', '1', min: 1, max: "#{item.inventory - 1}" %></p>
+          <%= submit_tag 'Decrease Quantity' %>
+          <% end %>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>
