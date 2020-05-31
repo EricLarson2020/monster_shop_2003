@@ -50,8 +50,6 @@ class Cart
       quantity.times do
         remove_item(item.id.to_s)
       end
-    else
-      false
     end
   end
 
