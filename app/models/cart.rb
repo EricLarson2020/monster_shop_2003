@@ -38,7 +38,7 @@ class Cart
   end
 
   def add_quantity(quantity, item, inventory)
-    if @contents.values.first < inventory
+    if @contents[item.id.to_s] < inventory
       quantity.times do
         add_item(item.id.to_s)
       end
@@ -46,13 +46,12 @@ class Cart
   end
 
   def remove_quantity(quantity, item)
-    if @contents.values.first > 0
+    if @contents[item.id.to_s] > 1
       quantity.times do
         remove_item(item.id.to_s)
       end
-        return true
-      else
-        return false
+    else
+      return false
     end
   end
 
