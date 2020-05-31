@@ -7,29 +7,9 @@
 <b>Zip:</b> <%= @user.zip %>
 </div>
 
-<% @user.orders.each do |order| %>
-<section class = "shipping-address-<%= order.id %>">
-  <h1 align = "center">Shipping Info</h1>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Status</th>
-    </tr>
-    <tr>
-      <td><p><%= order.name %> </p></td>
-      <td><p><%= order.address %> </p></td>
-      <td><p><%= order.city %> </p></td>
-      <td><p><%= order.state %> </p></td>
-      <td><p><%= order.zip %> </p></td>
-      <td><p><%= order.status %> </p></td>
-    </tr>
-  </table>
-</section>
-<% end %>
+  <% if @user.orders.any? %>
+  <%= link_to "My Orders", "/profile/orders" %>
+  <% end %>
 
 <%= link_to "Edit My Profile", "/profile/#{@user.id}/edit"%><br/>
 

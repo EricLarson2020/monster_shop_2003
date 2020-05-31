@@ -181,18 +181,7 @@ RSpec.describe("Order Creation") do
       click_button "Create Order"
 
       expect(current_path).to eql("/profile/orders")
-      expect(page).to have_content("James")
-      expect(page).to have_content("123 Sesame St.")
-      expect(page).to have_content("NYC")
-      expect(page).to have_content("New York")
-      expect(page).to have_content(10001)
-      expect(page).to have_content("pending")
-      expect(page).to have_content("Your order was created")
       visit "/cart"
-
-      expect(page).not_to have_content(tire.name)
-      expect(page).not_to have_content(paper.name)
-      expect(page).not_to have_content(pencil.name)
 
     end
 

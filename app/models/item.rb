@@ -12,6 +12,9 @@ class Item <ApplicationRecord
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
 
+  def self.total_quantity
+    count
+  end
 
   def average_review
     reviews.average(:rating)
