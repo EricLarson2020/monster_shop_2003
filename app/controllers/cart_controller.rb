@@ -17,8 +17,13 @@ class CartController < ApplicationController
   def decrease_quantity
     item = Item.find(params[:item_id])
     quantity = params[:quantity_decrease].to_i
-      cart.remove_quantity(quantity, item)
-      redirect_to '/cart'
+      if cart.remove_quantity(quantity, item) == true
+        cart.remove_quantity(quantity, item)
+        redirect_to '/cart'
+      else
+        session[:cart].delete(params[:item_id])
+        redirect_to '/cart'
+      end
   end
 
   def show
