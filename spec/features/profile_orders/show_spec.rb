@@ -22,7 +22,7 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
       order.item_orders.create!(item: paper, price: paper.price, quantity: 2)
 
       visit "/profile/orders"
-      click_link 'Show Order'
+      click_link "Show Order #{order.id}"
       expect(current_path).to eql("/profile/orders/#{order.id}")
       expect(page).to have_content(order.id)
       expect(page).to have_content(order.created_at)

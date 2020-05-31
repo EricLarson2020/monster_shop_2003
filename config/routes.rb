@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
 
   get "profile/orders", to: "profile_orders#index"
+  get "profile/orders/:id", to: "profile_orders#show"
 
   namespace :merchant do
     get "/dashboard", to: "dashboard#show"

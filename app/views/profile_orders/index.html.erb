@@ -22,6 +22,6 @@
       <td><p>$<%= order.grandtotal.round(0) %> </p></td>
     </tr>
   </table>
-  <%= link_to 'Show Order', "/profile/orders/#{order.id}"
+  <%= link_to "Show Order #{order.id}", "/profile/orders/#{order.id}" %>
 </section>
 <% end %>

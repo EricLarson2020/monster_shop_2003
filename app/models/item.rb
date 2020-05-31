@@ -28,6 +28,13 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def quantity
+    item_orders.joins(:order).pluck(:quantity).first
+  end
+
+  def subtotal
+
+  end
   # def self.top_five
   #   # items = Item.left_outer_joins(:order)
   #   binding.pry
