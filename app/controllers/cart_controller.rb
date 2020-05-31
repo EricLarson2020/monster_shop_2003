@@ -6,7 +6,7 @@ class CartController < ApplicationController
     redirect_to "/items"
   end
 
-  def update
+  def add_quantity
       item = Item.find(params[:item_id])
       quantity = params[:quantity].to_i
       inventory = item.inventory
