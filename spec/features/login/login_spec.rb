@@ -196,9 +196,4 @@ RSpec.describe "Register Index Page", type: :feature do
     end
     expect(current_path).to eql("/register")
   end
-
-  describe "As an admin user" do
-    it "I can see everything a merchant sees on their dashboard" do
-    end
-  end
 end
