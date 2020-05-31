@@ -33,7 +33,7 @@
         <center>
           <p><%=quantity%></p>
           <%= form_tag "/cart/#{item.id}/add_quantity", method: :patch do %>
-          <p><%= number_field_tag 'quantity', '1', min: 1, max: "#{item.inventory - 1}" %></p>
+          <p><%= number_field_tag 'quantity', '1', min: 1, max: "#{item.inventory - quantity}" %></p>
           <%= submit_tag 'Update Quantity' %>
           <% end %>
           <%= form_tag "/cart/#{item.id}/decrease-quantity", method: :patch do %>
