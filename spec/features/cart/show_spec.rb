@@ -100,7 +100,9 @@ RSpec.describe 'Cart show' do
         visit '/cart'
         fill_in 'quantity', with: "5"
         click_on 'Update Quantity'
-        click_link "Decrease Quantity"
+
+        fill_in 'quantity_decrease', with: "2"
+        click_on 'Decrease Quantity'
 
         expect(page).to have_content("4")
       end
