@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
 
+  get "profile/orders", to: "profile#index"
+
   namespace :merchant do
     get "/dashboard", to: "dashboard#show"
   end

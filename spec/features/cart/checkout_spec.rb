@@ -16,9 +16,15 @@ RSpec.describe 'Cart show' do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
       @items_in_cart = [@paper,@tire,@pencil]
+
     end
 
     it 'Theres a link to checkout' do
+      jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "777@hotmail.com", password: "3455"})
+      visit "/login"
+      fill_in :email, with: "777@hotmail.com"
+      fill_in :password, with: "3455"
+      click_on "Submit"
       visit "/cart"
 
       expect(page).to have_link("Checkout")
@@ -32,7 +38,7 @@ RSpec.describe 'Cart show' do
 
       visit "/cart"
 
-      expect(page).to have_content("Please register or login to finish the checkout process")
+      expect(page).to have_content("Please Register or Login to finish the checkout process")
       expect(page).to have_link("Register")
       expect(page).to have_link("Login")
       click_link "Register"
@@ -77,10 +83,3 @@ RSpec.describe 'Cart show' do
 
 
 end
-
-# As a visitor
-# When I have items in my cart
-# And I visit my cart
-# I see information telling me I must register or log in to finish the checkout process
-# The word "register" is a link to the registration page
-# The words "log in" is a link to the login page

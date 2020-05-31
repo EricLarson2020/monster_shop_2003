@@ -74,7 +74,7 @@ end
     expect(page).to have_content("Password confirmation doesn't match Password")
   end
 
-  it "user has to use unique email" do 
+  it "user has to use unique email" do
 
     jack = User.create!({
       name: "Jack",
@@ -83,10 +83,10 @@ end
       state: "Colorado",
       zip: 83243,
       email: "jack@hotmail.com",
-      password: "3455", 
+      password: "3455",
       password_confirmation: "3455"
     })
-    
+
 
     visit "/merchants"
     within "nav" do
@@ -104,22 +104,14 @@ end
     click_button "Create User"
     expect(current_path).to eql("/register")
     expect(page).to have_content("Email has already been taken")
-  end 
+  end
 
 
 end
 
 
 
-  # jack = User.new ({
-  #     name: "Jack",
-  #     address: "333 Jack Blvd",
-  #     city: "Denver",
-  #     state: "Colorado",
-  #     zip: 83243,
-  #     email: "jack@hotmail.com",
-  #     password: "3455"
-  #   )}
+
 # User Story 10, User Registration
 #
 # User Story 11, User Registration Missing Details
