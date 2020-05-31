@@ -81,9 +81,10 @@ RSpec.describe 'Cart show' do
         visit "/items/#{paper.id}"
         click_on "Add To Cart"
         visit '/cart'
-        fill_in 'quantity', with: 5
+        fill_in 'quantity', with: "5"
+        click_on 'Update Quantity'
 
-        expect(page).to have_content("Total: $100")
+        expect(page).to have_content("Total: $120")
       end
 
     end
