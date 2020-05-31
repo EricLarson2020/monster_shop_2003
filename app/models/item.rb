@@ -12,6 +12,9 @@ class Item <ApplicationRecord
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
 
+  
+
+
 
   def average_review
     reviews.average(:rating)
@@ -23,6 +26,15 @@ class Item <ApplicationRecord
 
   def no_orders?
     item_orders.empty?
+  end
+
+
+  def quantity
+    item_orders.joins(:order).pluck(:quantity).first
+  end
+
+  def subtotal
+    quantity * price
   end
 
   # def self.top_five

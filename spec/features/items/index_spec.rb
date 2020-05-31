@@ -55,8 +55,11 @@ RSpec.describe "Items Index Page" do
     end
 
     it "user can see statistics for most popular and least popular items" do
-        order1 = Order.create!(name: "jack", address: "1234 something", city: "Den", state: "CO", zip: 12344)
-        order2 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344)
+
+        jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "777@hotmail.com", password: "3455"})
+        order1 = Order.create!(name: "jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user_id: jack.id)
+        order2 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344, user_id: jack.id)
+
 
         ItemOrder.create!(item_id: @tire.id, order_id: order1.id, price: 5.00, quantity: 5)
         ItemOrder.create!(item_id: @pull_toy.id, order_id: order1.id, price: 5.00, quantity: 6)

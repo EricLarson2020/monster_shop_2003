@@ -1,0 +1,18 @@
+<h1>Order: <%=@order.id%></h1>
+<strong>Creation Date: <%=@order.created_at %></strong>
+<strong>Last Updated: <%=@order.updated_at %></strong>
+<strong>Current Status: <%=@order.status %></strong>
+
+<% @order.items.each do |item| %>
+<section class = "item-<%=item.id%>">
+  <%= item.name %>
+  <%= item.description %>
+  <%= item.image %>
+  <strong>Item Quantity: <%= item.quantity %></strong>
+  <%= item.price %>
+  <strong> Item Subtotal: $<%= item.subtotal %> </strong>
+</section>
+  <% end %>
+
+  <strong>Total Quantity: <%=@order.total_quantity%> </strong>
+  <strong>Grand Total: $<%=@order.grandtotal%> </strong>

@@ -1,0 +1,27 @@
+<h1>Orders</h1>
+
+
+<% @user.orders.each do |order| %>
+<section class = "order-<%= order.id %>">
+  <h1 align = "center">Order Info</h1>
+  <table>
+    <tr>
+      <th>Order Id</th>
+      <th>Date Created</th>
+      <th>Date Last Updated</th>
+      <th>Status</th>
+      <th>Total Items</th>
+      <th>Total Cost</th>
+    </tr>
+    <tr>
+      <td><p><%= order.id %> </p></td>
+      <td><p><%= order.created_at %> </p></td>
+      <td><p><%= order.updated_at %> </p></td>
+      <td><p><%= order.status %> </p></td>
+      <td><p><%= order.total_quantity %> </p></td>
+      <td><p>$<%= order.grandtotal.round(0) %> </p></td>
+    </tr>
+  </table>
+  <%= link_to "Show Order #{order.id}", "/profile/orders/#{order.id}" %>
+</section>
+<% end %>

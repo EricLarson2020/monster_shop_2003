@@ -7,6 +7,11 @@
 <b>Zip:</b> <%= @user.zip %>
 </div>
 
+
+  <% if @user.orders.any? %>
+  <%= link_to "My Orders", "/profile/orders" %>
+  <% end %>
+
 <%= link_to "Edit My Profile", "/profile/#{@user.id}/edit"%><br/>
 
 <%= link_to "Edit My Password", "/password/#{@user.id}/edit"%>

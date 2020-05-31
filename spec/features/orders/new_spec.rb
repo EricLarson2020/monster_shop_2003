@@ -17,6 +17,13 @@ RSpec.describe("New Order Page") do
       click_on "Add To Cart"
     end
     it "I see all the information about my current cart" do
+      jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "777@hotmail.com", password: "3455"})
+      visit "/login"
+      fill_in :email, with: "777@hotmail.com"
+      fill_in :password, with: "3455"
+      click_on "Submit"
+      visit "/cart"
+
       visit "/cart"
 
       click_on "Checkout"
@@ -49,6 +56,13 @@ RSpec.describe("New Order Page") do
     end
 
     it "I see a form where I can enter my shipping info" do
+      jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "777@hotmail.com", password: "3455"})
+      visit "/login"
+      fill_in :email, with: "777@hotmail.com"
+      fill_in :password, with: "3455"
+      click_on "Submit"
+      visit "/cart"
+      
       visit "/cart"
       click_on "Checkout"
 

@@ -9,7 +9,9 @@ class OrdersController <ApplicationController
   end
 
   def create
-    order = Order.create(order_params)
+
+
+    order = current_user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -17,9 +19,10 @@ class OrdersController <ApplicationController
           quantity: quantity,
           price: item.price
           })
+      flash[:notice] = "Your order was created"
       end
       session.delete(:cart)
-      redirect_to "/orders/#{order.id}"
+      redirect_to "/profile/orders"
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
@@ -32,6 +35,7 @@ class OrdersController <ApplicationController
   private
 
   def order_params
-    params.permit(:name, :address, :city, :state, :zip)
+    defaults = {status: 'pending'}
+    params.permit(:name, :address, :city, :state, :zip).reverse_merge(defaults)
   end
 end
