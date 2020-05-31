@@ -3,7 +3,7 @@
 
 <% @user.orders.each do |order| %>
 <section class = "order-<%= order.id %>">
-  <h1 align = "center">Shipping Info</h1>
+  <h1 align = "center">Order Info</h1>
   <table>
     <tr>
       <th>Order Id</th>
@@ -19,7 +19,7 @@
       <td><p><%= order.updated_at %> </p></td>
       <td><p><%= order.status %> </p></td>
       <td><p><%= order.items.total_quantity %> </p></td>
-      <td><p><%= order.grandtotal %> </p></td>
+      <td><p>$<%= order.grandtotal.round(0) %> </p></td>
     </tr>
   </table>
 </section>

@@ -27,7 +27,7 @@ RSpec.describe "Profile Orders Page", type: :feature do
 
     visit "/profile/orders"
 
-    within "order-#{order_1.id}" do
+    within ".order-#{order_1.id}" do
       expect(page).to have_content(order_1.id)
       expect(page).to have_content(order_1.created_at)
       expect(page).to have_content(order_1.updated_at)
@@ -36,7 +36,7 @@ RSpec.describe "Profile Orders Page", type: :feature do
       expect(page).to have_content("$206")
     end
 
-    within "order-#{order_2.id}" do
+    within ".order-#{order_2.id}" do
       expect(page).to have_content(order_2.id)
       expect(page).to have_content(order_2.created_at)
       expect(page).to have_content(order_2.updated_at)
@@ -45,11 +45,11 @@ RSpec.describe "Profile Orders Page", type: :feature do
       expect(page).to have_content("$244")
     end
 
-    within "order-#{order_3.id}" do
-      expect(page).to have_content(order_2.id)
-      expect(page).to have_content(order_2.created_at)
-      expect(page).to have_content(order_2.updated_at)
-      expect(page).to have_content(order_2.status)
+    within ".order-#{order_3.id}" do
+      expect(page).to have_content(order_3.id)
+      expect(page).to have_content(order_3.created_at)
+      expect(page).to have_content(order_3.updated_at)
+      expect(page).to have_content(order_3.status)
       expect(page).to have_content(1)
       expect(page).to have_content("$10")
     end
