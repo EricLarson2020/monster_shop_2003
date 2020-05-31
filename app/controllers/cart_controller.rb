@@ -10,15 +10,15 @@ class CartController < ApplicationController
       item = Item.find(params[:item_id])
       quantity = params[:quantity].to_i
       inventory = item.inventory
-      cart.add_quantity(quantity, item, inventory)
-      redirect_to '/cart'
+        cart.add_quantity(quantity, item, inventory)
+        redirect_to '/cart'
   end
 
   def decrease_quantity
     item = Item.find(params[:item_id])
     quantity = params[:quantity_decrease].to_i
-    cart.remove_quantity(quantity, item)
-    redirect_to '/cart'
+      cart.remove_quantity(quantity, item)
+      redirect_to '/cart'
   end
 
   def show

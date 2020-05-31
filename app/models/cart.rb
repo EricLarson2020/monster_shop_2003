@@ -46,8 +46,12 @@ class Cart
   end
 
   def remove_quantity(quantity, item)
-    quantity.times do
-      remove_item(item.id.to_s)
+    if @contents.values.first > 0
+      quantity.times do
+        remove_item(item.id.to_s)
+      end
+    else
+      false
     end
   end
 
