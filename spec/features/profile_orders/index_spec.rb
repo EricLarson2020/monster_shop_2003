@@ -32,7 +32,7 @@ RSpec.describe "Profile Orders Page", type: :feature do
       expect(page).to have_content(order_1.created_at)
       expect(page).to have_content(order_1.updated_at)
       expect(page).to have_content(order_1.status)
-      expect(page).to have_content(2)
+      expect(page).to have_content(5)
       expect(page).to have_content("$206")
     end
 
@@ -41,7 +41,7 @@ RSpec.describe "Profile Orders Page", type: :feature do
       expect(page).to have_content(order_2.created_at)
       expect(page).to have_content(order_2.updated_at)
       expect(page).to have_content(order_2.status)
-      expect(page).to have_content(3)
+      expect(page).to have_content(6)
       expect(page).to have_content("$244")
     end
 
@@ -50,7 +50,7 @@ RSpec.describe "Profile Orders Page", type: :feature do
       expect(page).to have_content(order_3.created_at)
       expect(page).to have_content(order_3.updated_at)
       expect(page).to have_content(order_3.status)
-      expect(page).to have_content(1)
+      expect(page).to have_content(5)
       expect(page).to have_content("$10")
     end
 

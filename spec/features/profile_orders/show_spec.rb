@@ -46,12 +46,12 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
         expect(page).to have_content("$40")
       end
 
-      within ".pencil-#{pencil.id}" do
-        expect(page).to have_content(tire.name)
-        expect(page).to have_content(tire.description)
-        expect(page).to have_content(tire.image)
+      within ".item-#{pencil.id}" do
+        expect(page).to have_content(pencil.name)
+        expect(page).to have_content(pencil.description)
+        expect(page).to have_content(pencil.image)
         expect(page).to have_content("Item Quantity: 2")
-        expect(page).to have_content(tire.price)
+        expect(page).to have_content(pencil.price)
         expect(page).to have_content("$4")
       end
 
