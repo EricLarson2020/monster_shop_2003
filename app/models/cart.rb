@@ -32,4 +32,12 @@ class Cart
     end
   end
 
+  def update_quantity(quantity, item, inventory)
+    if @contents.values.first < inventory
+      quantity.times do
+        add_item(item.id.to_s)
+      end
+    end
+  end
+
 end

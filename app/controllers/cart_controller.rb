@@ -7,12 +7,11 @@ class CartController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:item_id])
-    quantity = params[:quantity].to_i
-    quantity.times do
-      cart.add_item(item.id.to_s)
-    end
-    redirect_to '/cart'
+      item = Item.find(params[:item_id])
+      quantity = params[:quantity].to_i
+      inventory = item.inventory
+      cart.update_quantity(quantity, item, inventory)
+      redirect_to '/cart'
   end
 
   def show
