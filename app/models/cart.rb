@@ -10,6 +10,11 @@ class Cart
     @contents[item] += 1
   end
 
+  def remove_item(item)
+    @contents[item] = 0 if !@contents[item]
+    @contents[item] -= 1
+  end
+
   def total_items
     @contents.values.sum
   end
@@ -29,6 +34,20 @@ class Cart
   def total
     @contents.sum do |item_id,quantity|
       Item.find(item_id).price * quantity
+    end
+  end
+
+  def add_quantity(quantity, item, inventory)
+    if @contents.values.first < inventory
+      quantity.times do
+        add_item(item.id.to_s)
+      end
+    end
+  end
+
+  def remove_quantity(quantity, item)
+    quantity.times do
+      remove_item(item.id.to_s)
     end
   end
 
