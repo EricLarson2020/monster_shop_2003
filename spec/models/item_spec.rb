@@ -55,5 +55,12 @@ describe Item, type: :model do
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.quantity).to eql(2)
     end
+
+    it "subtotal" do
+      jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "777@hotmail.com", password: "3455"})
+      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id)
+      order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
+      expect(@chain.subtotal).to eql(100)
+    end
   end
 end
