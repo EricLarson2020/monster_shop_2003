@@ -1,5 +1,5 @@
 <h2>Login<h2>
-<%= form_tag '/login'%>
+<%= form_tag '/login', method: :post%>
 <%= label_tag :email %>
 <%= text_field_tag :email %>
 <%= label_tag :password %>
