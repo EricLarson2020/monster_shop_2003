@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
 
   namespace :merchant do
+    post "/items/:item_id", to: "items#update"
     root "dashboard#index"
     get "/items", to: "items#index"
     get "/dashboard", to: "dashboard#index"
