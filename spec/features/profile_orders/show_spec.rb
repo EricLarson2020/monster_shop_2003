@@ -78,7 +78,6 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
     order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3)
 
     visit "/profile/orders/#{order_1.id}"
-
     expect(page).to have_content("Current Status: Packaged")
     expect(page).to_not have_content("Current Status: fulfilled")
   end
