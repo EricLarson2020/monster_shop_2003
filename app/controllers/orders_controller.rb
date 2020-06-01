@@ -10,7 +10,6 @@ class OrdersController <ApplicationController
 
   def create
 
-
     order = current_user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
@@ -28,8 +27,6 @@ class OrdersController <ApplicationController
       render :new
     end
   end
-
-
 
 
   private
