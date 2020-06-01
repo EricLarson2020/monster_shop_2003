@@ -16,5 +16,9 @@
       <%= button_to "Activate Item", "/merchant/items/#{item.id}"%>
 
     <% end %>
+    <% if item.no_orders? %>
+        <%= link_to  "Delete Item", "/merchant/items/#{item.id}", method: :delete, data: {confirm: "Confirm Item Deletion"} %></br>
+    <% end %>
+
     </ div>
   <% end %>
