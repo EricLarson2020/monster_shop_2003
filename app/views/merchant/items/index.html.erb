@@ -13,6 +13,8 @@
       <%= button_to "Deactivate Item", "/merchant/items/#{item.id}"%>
     <% else %>
       <p>Status: Inactive </p>
+      <%= button_to "Activate Item", "/merchant/items/#{item.id}"%>
+
     <% end %>
     </ div>
   <% end %>

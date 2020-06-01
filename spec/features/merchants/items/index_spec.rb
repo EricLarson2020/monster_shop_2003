@@ -23,7 +23,7 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     end
   end
 
-  it "I can click link to change active status" do
+  it "I can click link to change active status to inactive" do
     dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
     employee = User.create!({ name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "john@hotmail.com", password: "3455", password_confirmation: "3455", role: 1, merchant_id: dog_shop.id})
     pull_toy = dog_shop.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32, active?: true)
@@ -43,22 +43,36 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     expect(current_path).to eq("/merchant/items")
     expect(page).to have_content("#{pull_toy.name} is no longer for sale.")
   end
+
+  it "I can click link to change inactive status to active" do
+    dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+    employee = User.create!({ name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "john@hotmail.com", password: "3455", password_confirmation: "3455", role: 1, merchant_id: dog_shop.id})
+    pull_toy = dog_shop.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32, active?: true)
+    tennis_ball = dog_shop.items.create!(name: "Tennis Ball", description: "Great ball!", price: 5, image: "http://lovencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 40, active?: false)
+    racket = dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10, active?: true)
+
+    visit "/login"
+    fill_in :email, with: "john@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+    visit merchant_items_path
+
+    within(".item-#{tennis_ball.id}") do
+      click_button("Activate Item", match: :first)
+    end
+
+    expect(current_path).to eq("/merchant/items")
+    expect(page).to have_content("#{tennis_ball.name} is now for sale.")
+  end
 end
 
 
-# User Story 42, Merchant deactivates an item
+# User Story 43, Merchant activates an item
 
 # As a merchant employee
 # When I visit my items page
-# I see all of my items with the following info:
-#  - name
-# - description
-# - price
-# - image
-# - active/inactive status
-# - inventory
-# I see a link or button to deactivate the item next to each item that is active
-# And I click on the "deactivate" button or link for an item
+# I see a link or button to activate the item next to each item that is inactive
+# And I click on the "activate" button or link for an item
 # I am returned to my items page
-# I see a flash message indicating this item is no longer for sale
-# I see the item is now inactive
+# I see a flash message indicating this item is now available for sale
+# I see the item is now active
