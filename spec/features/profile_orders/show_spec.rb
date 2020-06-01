@@ -60,6 +60,30 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
       expect(page).to have_content("Grand Total: $244")
 
   end
+
+  it "when all items in a cart have been fufilled status for all items is packaged" do
+
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "2323@hotmail.com", password: "3455"})
+    visit "/login"
+    fill_in :email, with: "2323@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+
+    order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: 'fulfilled')
+    order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
+    order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3)
+
+    visit "/profile/orders/#{order_1.id}"
+
+    expect(page).to have_content("Current Status: Packaged")
+    expect(page).to_not have_content("Current Status: fulfilled")
+  end
+
+
 end
 
 
