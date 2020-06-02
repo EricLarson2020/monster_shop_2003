@@ -15,10 +15,10 @@ RSpec.describe "Admin Dashboard Page" do
     @racket = @dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10)
 
     @order1 = Order.create!(name: "Jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
-    @orderp = Order.create!(name: "Jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
-    @order2 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "pending")
-    @order3 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "shipped")
-    @order4 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user2, status: "cancelled")
+    @orderp = Order.create!(name: "John", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
+    @order2 = Order.create!(name: "Eric", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "packaged")
+    @order3 = Order.create!(name: "Whitney", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "shipped")
+    @order4 = Order.create!(name: "Cory", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user2, status: "cancelled")
 
     @order1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 2)
     @order1.item_orders.create!(item: @tennis_ball, price: @tennis_ball.price, quantity: 1)
@@ -36,14 +36,28 @@ RSpec.describe "Admin Dashboard Page" do
     fill_in :password, with: "abcd"
     click_on "Submit"
 
+
     expect(current_path).to eq("/admin/dashboard")
-    within "#user-order-#{@user.id}" do
-      expect(page).to have_content("#{@user.name}")
-      expect(page).to have_content("#{@order1.id}")
-      expect(page).to have_content("#{@order1.created_at}")
-      click_link "#{@user.name}"
+    within "#packaged" do
+      expect(page).to have_content("#{@order2.name}")
+      expect(page).to have_content("#{@order2.id}")
+      expect(page).to have_content("#{@order2.created_at}")
+      click_link "#{@order2.name}"
     end
       expect(current_path).to eq("/profile")
+
+      visit "/admin/dashboard"
+
+    within "#pending" do
+      expect(page).to have_content("#{@order1.name}")
+      expect(page).to have_content("#{@order1.id}")
+      expect(page).to have_content("#{@order1.created_at}")
+      expect(page).to_not have_content("#{@order2.name}")
+      expect(page).to_not have_content("#{@order2.id}")
+      click_link "#{@order1.name}"
+    end
+      expect(current_path).to eq("/profile")
+
   end
 
   it "an admin can ship pending orders" do
@@ -55,21 +69,13 @@ RSpec.describe "Admin Dashboard Page" do
 
     expect(current_path).to eq("/admin/dashboard")
 
-    within "#user-order-#{@user.id}" do
-      expect(page).to have_content("#{@user.name}")
+    within "#pending" do
+      expect(page).to have_content("#{@order1.name}")
       expect(page).to have_content("#{@order1.id}")
       expect(page).to have_content("#{@order1.created_at}")
       expect("#{@order1.status}").to eq("pending")
       click_link "Ship Order #{@order1.id}"
-    end
-
-    expect(current_path).to eq("/admin/dashboard")
-    within "#user-order-#{@user1.id}" do
-      expect(page).to have_content("#{@user1.name}")
-      expect(page).to have_content("#{@order2.id}")
-      expect(page).to have_content("#{@order2.created_at}")
-      expect("#{@order2.status}").to eq("pending")
-      click_link "Ship Order #{@order2.id}"
+      save_and_open_page
     end
   end
 
