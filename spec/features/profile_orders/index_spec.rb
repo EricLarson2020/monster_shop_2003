@@ -21,7 +21,7 @@ RSpec.describe "Profile Orders Page", type: :feature do
     order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
     order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3)
     order_2.item_orders.create!(item: pencil, price: pencil.price, quantity: 2)
-    order_2.item_orders.create!(item: tire, price: tire.price, quantity: 2)
+    order_2.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "unfulfilled")
     order_2.item_orders.create!(item: paper, price: paper.price, quantity: 2)
     order_3.item_orders.create!(item: pencil, price: pencil.price, quantity: 5)
 

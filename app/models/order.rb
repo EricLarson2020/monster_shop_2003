@@ -24,11 +24,12 @@ class Order <ApplicationRecord
   def find_order_status(id)
     orders = Order.find(id)
     item_orders = ItemOrder.where(order_id: id)
-    if item_orders.any? {|order| order.status == "unfulfilled"}
-        "pending"
+
+    if item_orders.all? {|order| order.status == "fulfilled"}
+        "packaged"
       # orders.save
     else
-      "packaged"
+      "pending"
     end
   end
 
