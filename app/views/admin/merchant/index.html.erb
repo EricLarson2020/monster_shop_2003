@@ -8,3 +8,9 @@
     <%= button_to "disable", "/admin/merchants/#{merchant.id}/update", method: :patch %>
   <% end %>
 <% end %>
+
+<%=@merchant.items.each do |item| %>
+<section class="item-<%=item.id%>">
+  <strong>Item Active?: <%=item.status%></strong>
+  <% if item.active?
+    <% end %>
