@@ -1,65 +1,65 @@
 require "rails_helper"
 
 RSpec.describe "Profile Orders Show Page", type: :feature do
-  # it "Can display info for a single order" do
-  #   mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
-  #   meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-  #   tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-  #   paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
-  #   pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
-  #   jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "2323@hotmail.com", password: "3455"})
-  #   visit "/login"
-  #   fill_in :email, with: "2323@hotmail.com"
-  #   fill_in :password, with: "3455"
-  #   click_on "Submit"
-  #
-  #     order = Order.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: 'pending')
-  #     order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: 'pending')
-  #     order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
-  #     order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3)
-  #     order.item_orders.create!(item: pencil, price: pencil.price, quantity: 2)
-  #     order.item_orders.create!(item: tire, price: tire.price, quantity: 2)
-  #     order.item_orders.create!(item: paper, price: paper.price, quantity: 2)
-  #
-  #     visit "/profile/orders"
-  #     click_link "Show Order #{order.id}"
-  #     expect(current_path).to eql("/profile/orders/#{order.id}")
-  #     expect(page).to have_content(order.id)
-  #     expect(page).to have_content(order.created_at)
-  #     expect(page).to have_content(order.updated_at)
-  #     expect(page).to have_content(order.status)
-  #     within ".item-#{tire.id}" do
-  #       expect(page).to have_content(tire.name)
-  #       expect(page).to have_content(tire.description)
-  #       expect(page).to have_content(tire.image)
-  #       expect(page).to have_content("Item Quantity: 2")
-  #       expect(page).to have_content(tire.price)
-  #       expect(page).to have_content("$200")
-  #     end
-  #
-  #     within ".item-#{paper.id}" do
-  #       expect(page).to have_content(paper.name)
-  #       expect(page).to have_content(paper.description)
-  #       expect(page).to have_content(paper.image)
-  #       expect(page).to have_content("Item Quantity: 2")
-  #       expect(page).to have_content(paper.price)
-  #       expect(page).to have_content("$40")
-  #     end
-  #
-  #     within ".item-#{pencil.id}" do
-  #       expect(page).to have_content(pencil.name)
-  #       expect(page).to have_content(pencil.description)
-  #       expect(page).to have_content(pencil.image)
-  #       expect(page).to have_content("Item Quantity: 2")
-  #       expect(page).to have_content(pencil.price)
-  #       expect(page).to have_content("$4")
-  #     end
-  #
-  #     expect(page).not_to have_content(order_1.name)
-  #     expect(page).to have_content("Total Quantity: 6")
-  #     expect(page).to have_content("Grand Total: $244")
-  #
-  # end
+  it "Can display info for a single order" do
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "2323@hotmail.com", password: "3455"})
+    visit "/login"
+    fill_in :email, with: "2323@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+
+      order = Order.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: 'pending')
+      order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: 'pending')
+      order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
+      order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3)
+      order.item_orders.create!(item: pencil, price: pencil.price, quantity: 2)
+      order.item_orders.create!(item: tire, price: tire.price, quantity: 2)
+      order.item_orders.create!(item: paper, price: paper.price, quantity: 2)
+
+      visit "/profile/orders"
+      click_link "Show Order #{order.id}"
+      expect(current_path).to eql("/profile/orders/#{order.id}")
+      expect(page).to have_content(order.id)
+      expect(page).to have_content(order.created_at)
+      expect(page).to have_content(order.updated_at)
+      expect(page).to have_content(order.status)
+      within ".item-#{tire.id}" do
+        expect(page).to have_content(tire.name)
+        expect(page).to have_content(tire.description)
+        expect(page).to have_content(tire.image)
+        expect(page).to have_content("Item Quantity: 2")
+        expect(page).to have_content(tire.price)
+        expect(page).to have_content("$200")
+      end
+
+      within ".item-#{paper.id}" do
+        expect(page).to have_content(paper.name)
+        expect(page).to have_content(paper.description)
+        expect(page).to have_content(paper.image)
+        expect(page).to have_content("Item Quantity: 2")
+        expect(page).to have_content(paper.price)
+        expect(page).to have_content("$40")
+      end
+
+      within ".item-#{pencil.id}" do
+        expect(page).to have_content(pencil.name)
+        expect(page).to have_content(pencil.description)
+        expect(page).to have_content(pencil.image)
+        expect(page).to have_content("Item Quantity: 2")
+        expect(page).to have_content(pencil.price)
+        expect(page).to have_content("$4")
+      end
+
+      expect(page).not_to have_content(order_1.name)
+      expect(page).to have_content("Total Quantity: 6")
+      expect(page).to have_content("Grand Total: $244")
+
+  end
 
   it "Can Cancel an order" do
     mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -97,20 +97,16 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
       visit "/profile/orders/#{order.id}"
       expect(page).to have_content("Current Status: cancelled")
 
-
   end
 end
 
-
-# User Story 30, User cancels an order
-#
-# As a registered user
-# When I visit an order's show page
-# I see a button or link to cancel the order
-# When I click the cancel button for an order, the following happens:
-# - Each row in the "order items" table is given a status of "unfulfilled"
-# - The order itself is given a status of "cancelled"
-# - Any item quantities in the order that were previously fulfilled have their quantities returned to their respective merchant's inventory for that item.
-# - I am returned to my profile page
-# - I see a flash message telling me the order is now cancelled
-# - And I see that this order now has an updated status of "cancelled"
+# As a merchant employee
+# When I visit an order show page from m  y dashboard
+# I see the recipients name and address that was used to create this order
+# I only see the items in the order that are being purchased from my merchant
+# I do not see any items in the order being purchased from other merchants
+# For each item, I see the following information:
+# - the name of the item, which is a link to my item's show page
+# - an image of the item
+# - my price for the item
+# - the quantity the user wants to purchase
