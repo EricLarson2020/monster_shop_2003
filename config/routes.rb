@@ -59,7 +59,8 @@ Rails.application.routes.draw do
   namespace :merchant do
     get "/items/new", to: "items#new"
     post "/items", to: "items#create"
-    post "/items/:item_id", to: "items#update"
+    get "/items/:item_id/edit", to: "items#edit"
+    patch "/items/:item_id", to: "items#update"
     delete "/items/:item_id", to: "items#destroy"
     root "dashboard#index"
     get "/items", to: "items#index"

@@ -30,13 +30,3 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     expect(page).to have_content("Tennis Racket has been deleted.")
   end
 end
-
-# User Story 44, Merchant deletes an item
-
-# As a merchant employee
-# When I visit my items page
-# I see a button or link to delete the item next to each item that has never been ordered
-# When I click on the "delete" button or link for an item
-# I am returned to my items page
-# I see a flash message indicating this item is now deleted
-# I no longer see this item on the page

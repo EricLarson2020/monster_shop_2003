@@ -20,17 +20,13 @@ class  Merchant::ItemsController < ApplicationController
     end
   end
 
+  def edit
+    @item = Item.find(params[:item_id])
+  end
+
   def update
-    item = Item.find(params[:item_id])
-    if item.active? == true
-      item.update(active?: false)
-      redirect_to "/merchant/items"
-      flash[:notice] = "#{item.name} is no longer for sale."
-    elsif item.active? == false
-      item.update(active?: true)
-      redirect_to "/merchant/items"
-      flash[:notice] = "#{item.name} is now for sale."
-    end
+    @item = Item.find(params[:item_id])
+    params[:status] ? status_update(params) : item_update(item_params)
   end
 
   def destroy
@@ -43,5 +39,28 @@ class  Merchant::ItemsController < ApplicationController
 
   def item_params
     params.permit(:name, :description, :price, :inventory, :image)
+  end
+
+  def item_update(item_params)
+    @item.update(item_params)
+    if @item.save
+      flash[:notice] = "Item has been updated."
+      redirect_to "/merchant/items"
+    else
+      flash[:notice] = @item.errors.full_messages.to_s
+      redirect_to "/merchant/items/#{@item.id}/edit"
+    end
+  end
+
+  def status_update(params)
+    if item.active? == true
+      item.update(active?: false)
+      redirect_to "/merchant/items"
+      flash[:notice] = "#{item.name} is no longer for sale."
+    elsif item.active? == false
+      item.update(active?: true)
+      redirect_to "/merchant/items"
+      flash[:notice] = "#{item.name} is now for sale."
+    end
   end
 end
