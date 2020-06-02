@@ -2,7 +2,9 @@
 
 
 <%=@merchant.each do |merchant| %>
-
-<%= button_to "disable", "/merchants/#{merchant.id}/update", method: :patch %>
-<strong>Merchant Status: <%= merchant.status %></strong>
+<section class="merchant-<%=merchant.id%>">
+  <strong>Merchant Status: <%= merchant.status %></strong>
+  <% if merchant.status != "disabled" %>
+    <%= button_to "disable", "/admin/merchants/#{merchant.id}/update", method: :patch %>
+  <% end %>
 <% end %>

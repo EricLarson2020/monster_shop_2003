@@ -58,11 +58,11 @@ RSpec.describe "As an admin user" do
     visit "/admin/merchants"
     expect(current_path).to eql("/admin/merchants")
 
-    within "merchant-#{meg.id}" do
+    within ".merchant-#{meg.id}" do
     expect(page).not_to have_button("disable")
   end
 
-    within "merchant-#{dog_shop.id}" do
+    within ".merchant-#{dog_shop.id}" do
       expect(page).to have_content("Merchant Status: enabled")
       click_button "disable"
     end
@@ -70,7 +70,7 @@ RSpec.describe "As an admin user" do
   expect(current_path).to eql("/admin/merchants")
   expect(page).to have_content("You have disable merchant #{dog_shop.id}")
 
-  within "merchant-#{dog-shop.id}" do
+  within ".merchant-#{dog_shop.id}" do
     expect(page).not_to have_button("disable")
     expect(page).to have_content("Merchant Status: disabled")
   end
