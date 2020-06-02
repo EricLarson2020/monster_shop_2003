@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
   patch "/orders/:id/ship", to: "orders#ship"
+  delete "/orders/:id", to: "orders#destroy"
+
 
   get "/register", to: "users#new"
 

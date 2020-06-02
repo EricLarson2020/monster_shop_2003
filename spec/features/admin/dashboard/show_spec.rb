@@ -15,6 +15,7 @@ RSpec.describe "Admin Dashboard Page" do
     @racket = @dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10)
 
     @order1 = Order.create!(name: "Jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
+    @orderp = Order.create!(name: "Jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
     @order2 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "pending")
     @order3 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "shipped")
     @order4 = Order.create!(name: "john", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user2, status: "cancelled")
@@ -24,6 +25,7 @@ RSpec.describe "Admin Dashboard Page" do
     @order2.item_orders.create!(item: @tennis_ball, price: @tennis_ball.price, quantity: 1)
     @order3.item_orders.create!(item: @tennis_ball, price: @tennis_ball.price, quantity: 1)
     @order4.item_orders.create!(item: @tennis_ball, price: @tennis_ball.price, quantity: 1)
+    @orderp.item_orders.create!(item: @tennis_ball, price: @tennis_ball.price, quantity: 1)
   end
 
   it "an Admin can see all orders on dashboard" do
@@ -58,18 +60,37 @@ RSpec.describe "Admin Dashboard Page" do
       expect(page).to have_content("#{@order1.id}")
       expect(page).to have_content("#{@order1.created_at}")
       expect("#{@order1.status}").to eq("pending")
-      click_link "Ship"
+      click_link "Ship Order #{@order1.id}"
     end
 
+    expect(current_path).to eq("/admin/dashboard")
     within "#user-order-#{@user1.id}" do
       expect(page).to have_content("#{@user1.name}")
       expect(page).to have_content("#{@order2.id}")
       expect(page).to have_content("#{@order2.created_at}")
       expect("#{@order2.status}").to eq("pending")
-      click_link "Ship"
+      click_link "Ship Order #{@order2.id}"
     end
-    #And the user can no longer "cancel" the order.
+  end
 
+  it "user cannot cancel shipped orders" do
+
+    visit "/login"
+    fill_in :email, with: "email1@email.com"
+    fill_in :password, with: "abcd"
+    click_on "Submit"
+    click_link "My Orders"
+    click_on "Show Order #{@order3.id}"
+    expect(page).to_not have_content("Cancel")
+    visit "/logout"
+
+    visit "/login"
+    fill_in :email, with: "email2@email.com"
+    fill_in :password, with: "abcd"
+    click_on "Submit"
+    click_link "My Orders"
+    click_on "Show Order #{@order1.id}"
+    expect(page).to have_content("Cancel")
   end
 
 end

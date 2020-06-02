@@ -1,4 +1,5 @@
 <h1>Order: <%=@order.id%></h1>
+
 <ul>
   <li><strong>Creation Date: <%=@order.created_at %></strong></li>
   <li><strong>Last Updated: <%=@order.updated_at %></strong></li>
@@ -8,6 +9,12 @@
   <li><strong>Current Status: <%=@order.status %></strong></li>
   <% end %>
 </ul>
+
+
+<strong>Creation Date: <%=@order.created_at %></strong>
+<strong>Last Updated: <%=@order.updated_at %></strong>
+<strong>Current Status: <%=@order.status %></strong>
+
 
 <% @order.items.each do |item| %>
 <section class = "item-<%=item.id%>">
@@ -21,7 +28,15 @@
 </ul>
 </section>
   <% end %>
+
 <ul>
   <li><strong>Total Quantity: <%=@order.total_quantity%> </strong></li>
   <li><strong>Grand Total: $<%=@order.grandtotal%> </strong></li>
 </ul>
+
+  <strong>Total Quantity: <%=@order.total_quantity%> </strong>
+  <strong>Grand Total: $<%=@order.grandtotal%> </strong>
+
+  <% if @order.status != "shipped" %>
+    <%= link_to "Cancel Order", "/orders/#{@order.id}", method: :delete %>
+  <% end %>

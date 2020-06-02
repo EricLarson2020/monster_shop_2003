@@ -7,10 +7,10 @@
       <li><%= link_to user.name, "/profile" %></li>
       <% user.orders.each do |order| %>
         <% if order.status == "pending"  %>
-          <li><p1>Order Id: <%= order.id %> <%= link_to "Ship", "/orders/#{order.id}/ship", method: :patch %></p1></li>
+          <li><p1>Order Id: <%= order.id %> <%= link_to "Ship Order #{order.id}", "/orders/#{order.id}/ship", method: :patch %></p1></li>
           <li><p1>Order Date: <%= order.created_at %></p1></li>
           <li><p1>Order Status: <%= order.status %></p1></li>
-          <% else  %>
+        <% else  %>
           <li><p1>Order Id: <%= order.id %></p1></li>
           <li><p1>Order Date: <%= order.created_at %></p1></li>
           <li><p1>Order Status: <%= order.status %></p1></li>
