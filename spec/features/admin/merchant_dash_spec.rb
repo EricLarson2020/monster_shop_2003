@@ -133,9 +133,9 @@ end
   user = User.create!(name:"Jill", address:"123 Street", city:"Cityville", state:"CO", zip: 80110, email: "email2@email.com", password: "abcd", password_confirmation:"abcd", role:0)
   admin = User.create!(name:"Jan", address:"123 Street", city:"Cityville", state:"CO", zip: 80110, email: "nmnm@email.com", password: "abcd", password_confirmation:"abcd", role:2)
 
-  pull_toy = dog_shop.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-  tennis_ball = dog_shop.items.create!(name: "Tennis Ball", description: "Great ball!", price: 5, image: "http://lovencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 40)
-  racket = dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10)
+  pull_toy = dog_shop.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32, active?: false)
+  tennis_ball = dog_shop.items.create!(name: "Tennis Ball", description: "Great ball!", price: 5, image: "http://lovencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 40, active?: false)
+  racket = dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10, active?: false)
 
 
   order1 = Order.create!(name: "jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: user)
@@ -147,15 +147,42 @@ end
   fill_in :password, with: "abcd"
   click_on "Submit"
   visit "/admin/merchants"
+
+
+  within ".item-#{pull_toy.id}" do
+    expect(page).to have_content("Item Active?: false")
+  end
+
+  within ".item-#{tennis_ball.id}" do
+      expect(page).to have_content("Item Active?: false")
+  end
+
+  within ".item-#{racket.id}" do
+    expect(page).to have_content("Item Active?: false")
+  end
+
   within ".merchant-#{dog_shop.id}" do
   expect(page).to have_content("Merchant Status: disabled")
   click_button ("enable")
   end
+
   expect(current_path).to eql("/admin/merchants")
   expect(page).to have_content("You have enabled merchant #{dog_shop.id}")
   within ".merchant-#{dog_shop.id}" do
   expect(page).to have_content("Merchant Status: enabled")
   expect(page).not_to have_button("enable")
+  end
+
+  within ".item-#{pull_toy.id}" do
+    expect(page).to have_content("Item Active?: true")
+  end
+
+  within ".item-#{tennis_ball.id}" do
+      expect(page).to have_content("Item Active?: true")
+  end
+
+  within ".item-#{racket.id}" do
+    expect(page).to have_content("Item Active?: true")
   end
 end
 
