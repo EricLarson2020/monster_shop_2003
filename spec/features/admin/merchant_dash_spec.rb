@@ -147,7 +147,7 @@ end
   fill_in :password, with: "abcd"
   click_on "Submit"
   visit "/admin/merchants"
-  within "merchants-#{dog_shop.id}" do
+  within "merchant-#{dog_shop.id}" do
   expect(page).to have_content("Merchant Status: disabled")
   click_button ("enable")
   end
