@@ -3,5 +3,6 @@
 
 <%=@merchant.each do |merchant| %>
 
-<
+<%= button_to "disable", "/merchants/#{merchant.id}/update", method: :patch %>
+<strong>Merchant Status: <%= merchant.status %></strong>
 <% end %>
