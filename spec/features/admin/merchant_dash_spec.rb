@@ -97,31 +97,31 @@ end
     click_on "Submit"
     visit "/admin/merchants"
 
-    within "item-#{pull_toy.id}" do
+    within ".item-#{pull_toy.id}" do
       expect(page).to have_content("Item Active?: true")
     end
 
-    within "item-#{tennis_ball.id}" do
-        expect(page).to have_content("Item Active?: ture")
+    within ".item-#{tennis_ball.id}" do
+        expect(page).to have_content("Item Active?: true")
     end
 
-    within "item-#{racker.id}" do
+    within ".item-#{racket.id}" do
       expect(page).to have_content("Item Active?: true")
     end
 
-    within "merchant-#{dog_shop.id}" do
+    within ".merchant-#{dog_shop.id}" do
     click_button "disable"
     end
     expect(current_path).to eql("/admin/merchants")
-    within "item-#{pull_toy.id}" do
+    within ".item-#{pull_toy.id}" do
       expect(page).to have_content("Item Active?: false")
     end
 
-    within "item-#{tennis_ball.id}" do
+    within ".item-#{tennis_ball.id}" do
         expect(page).to have_content("Item Active?: false")
     end
 
-    within "item-#{racker.id}" do
+    within ".item-#{racket.id}" do
       expect(page).to have_content("Item Active?: false")
     end
   end
