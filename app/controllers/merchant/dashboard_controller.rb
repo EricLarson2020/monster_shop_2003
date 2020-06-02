@@ -1,6 +1,12 @@
 class  Merchant::DashboardController < ApplicationController 
+  # before_action :require_merchant
+  def show
+    @merchant = current_user.merchant
+  end 
 
-    def show
-    end 
+  def index
+    @merchant = current_user.merchant
+    # binding.pry
+  end
 
 end 

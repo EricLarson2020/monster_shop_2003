@@ -24,6 +24,8 @@ RSpec.describe "Register Index Page", type: :feature do
   end
 
   it "merchant user can login" do
+    dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+
     jack = User.create!({
       name: "Jack",
       address: "333 Jack Blvd",
@@ -33,7 +35,8 @@ RSpec.describe "Register Index Page", type: :feature do
       email: "john@hotmail.com",
       password: "3455",
       password_confirmation: "3455",
-      role: 1
+      role: 1,
+      merchant_id: dog_shop.id
       })
 
       visit "/login"
@@ -132,6 +135,7 @@ RSpec.describe "Register Index Page", type: :feature do
   end
 
   it "redirects merchant users that are already logged in" do
+    dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
     jil = User.create!({
       name: "Jack",
@@ -142,7 +146,8 @@ RSpec.describe "Register Index Page", type: :feature do
       email: "adsc@hotmail.com",
       password: "3455",
       password_confirmation: "3455",
-      role: 1
+      role: 1,
+      merchant_id: dog_shop.id
       })
       visit "/login"
       fill_in :email, with: "adsc@hotmail.com"

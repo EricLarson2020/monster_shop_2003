@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-
+# binding.pry
     if session[:user_id]
       user = User.find_by(id: session[:user_id])
       flash[:notice] = "You are already logged in"
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   end
 
     def create
-
+# binding.pry
       if User.find_by(email: params[:email])
         user = User.find_by(email: params[:email])
         # binding.pry
