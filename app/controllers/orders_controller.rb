@@ -28,6 +28,12 @@ class OrdersController <ApplicationController
     end
   end
 
+  def ship
+    order = Order.find(params[:id])
+    order.update!(status: "shipped")
+    redirect_to "/admin/dashboard"
+  end
+
 
   private
 

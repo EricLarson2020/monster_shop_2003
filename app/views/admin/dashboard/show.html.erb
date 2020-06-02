@@ -6,8 +6,15 @@
     <section id="user-order-<%=user.id %>">
       <li><%= link_to user.name, "/profile" %></li>
       <% user.orders.each do |order| %>
-        <li><p1>Order Id:<%= order.id %></p1></li>
-        <li><p1>Order Date:<%= order.created_at %></p1></li>
+        <% if order.status == "pending"  %>
+          <li><p1>Order Id: <%= order.id %> <%= link_to "Ship", "/orders/#{order.id}/ship", method: :patch %></p1></li>
+          <li><p1>Order Date: <%= order.created_at %></p1></li>
+          <li><p1>Order Status: <%= order.status %></p1></li>
+          <% else  %>
+          <li><p1>Order Id: <%= order.id %></p1></li>
+          <li><p1>Order Date: <%= order.created_at %></p1></li>
+          <li><p1>Order Status: <%= order.status %></p1></li>
+        <% end %>
       <% end %>
     </ul>
   </section>
