@@ -12,6 +12,7 @@
 
   <div class=orders>
  <% @merchant.item_orders.each do |order| %>
+ 
   <p>Created on: <%= order.created_at.strftime("%m/%d/%Y") %></p>
    <p>Id: <%= link_to "#{order.order_id}", "/merchant/orders/#{order.order_id}" %></p>
    <p>Total Quantity: <%= order.quantity %> </p>
