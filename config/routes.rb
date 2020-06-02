@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
+  delete "/orders/:id", to: "orders#destroy"
 
   get "/register", to: "users#new"
 
