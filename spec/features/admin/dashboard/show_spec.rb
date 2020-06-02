@@ -75,7 +75,6 @@ RSpec.describe "Admin Dashboard Page" do
       expect(page).to have_content("#{@order1.created_at}")
       expect("#{@order1.status}").to eq("pending")
       click_link "Ship Order #{@order1.id}"
-      save_and_open_page
     end
   end
 
