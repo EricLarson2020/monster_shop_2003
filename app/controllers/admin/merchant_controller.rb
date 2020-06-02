@@ -6,7 +6,11 @@ class Admin::MerchantController < ApplicationController
     @merchant = Merchant.find(params[:id])
   end
 
-  private 
+  def index
+    @merchant = Merchant.all
+  end
+
+  private
     def require_admin
       render file: "/public/404" unless current_admin?
     end
