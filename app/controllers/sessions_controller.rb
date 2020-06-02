@@ -1,13 +1,13 @@
 class SessionsController < ApplicationController
   def new
 # binding.pry
-    if session[:user_id]
-      user = User.find_by(id: session[:user_id])
+    if current_user
+      # current_user = User.find_by(id: session[:user_id])
       flash[:notice] = "You are already logged in"
 
-      if user.role == "admin"
+      if current_admin?
         redirect_to "/admin/dashboard"
-      elsif user.role == "merchant"
+      elsif current_user.merchant?
         redirect_to "/merchant/dashboard"
       else
         redirect_to "/profile"

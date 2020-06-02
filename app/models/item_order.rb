@@ -16,4 +16,6 @@ class ItemOrder <ApplicationRecord
     joins(:item).select('items.id, (items.name) as name, sum(item_orders.quantity) as quantity').group('items.id').order('quantity ASC').limit(5)
   end
 
+
+
 end

@@ -1,6 +1,8 @@
 class Admin::DashboardController < ApplicationController
 
     def show
-    end 
+      @admin = current_user
+      @users = User.all
+    end
 
-end 
+end

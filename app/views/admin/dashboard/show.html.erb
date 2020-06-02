@@ -1,0 +1,15 @@
+<h1>Admin Dashboard</h1>
+
+<% @users.each do |user| %>
+    <%if user.role == "default" || user.role == "merchant" %>
+    <ul>
+    <section id="user-order-<%=user.id %>">
+      <li><%= link_to user.name, "/profile" %></li>
+      <% user.orders.each do |order| %>
+        <li><p1>Order Id:<%= order.id %></p1></li>
+        <li><p1>Order Date:<%= order.created_at %></p1></li>
+      <% end %>
+    </ul>
+  </section>
+    <% end %>
+<% end %>

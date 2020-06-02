@@ -55,7 +55,6 @@ Rails.application.routes.draw do
   get "profile/orders/:id", to: "profile_orders#show"
 
 
-
   namespace :merchant do
     root "dashboard#index"
     get "/items", to: "items#index"
