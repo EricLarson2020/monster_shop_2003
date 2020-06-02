@@ -1,0 +1,18 @@
+
+
+
+<%=@merchants.each do |merchant| %>
+<section class="merchant-<%=merchant.id%>">
+  <strong>Merchant Status: <%= merchant.status %></strong>
+  <% if merchant.status != "disabled" %>
+    <%= button_to "disable", "/admin/merchants/#{merchant.id}/update", method: :patch %>
+    <% else %>
+    <%= button_to "enable", "/admin/merchants/#{merchant.id}/update", method: :patch %>
+  <% end %>
+
+  <%=merchant.items.each do |item| %>
+    <section class="item-<%=item.id%>">
+      <strong>Item Active?: <%=item.active?%></strong>
+    </section>
+  <% end %>
+<% end %>
