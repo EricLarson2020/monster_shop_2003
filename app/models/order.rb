@@ -19,6 +19,16 @@ class Order <ApplicationRecord
   #   # binding.pry
   #   joins(:orders).select('orders.*')
   # end
+  def find_order_status(id)
+    orders = Order.find(id)
+    item_orders = ItemOrder.where(order_id: id)
+    if item_orders.any? {|order| order.status == "unfulfilled"}
+        "pending"
+      # orders.save
+    else
+      "packaged"
+    end
+  end
 
 
 end

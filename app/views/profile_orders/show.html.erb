@@ -3,11 +3,7 @@
 <ul>
   <li><strong>Creation Date: <%=@order.created_at %></strong></li>
   <li><strong>Last Updated: <%=@order.updated_at %></strong></li>
-  <% if @order.status == "fulfilled" %>
-    <li><strong>Current Status: <%="Packaged"%></strong></li>
-    <% else %>
   <li><strong>Current Status: <%=@order.status %></strong></li>
-  <% end %>
 </ul>
 
 

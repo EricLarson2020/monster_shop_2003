@@ -44,7 +44,8 @@ class MerchantsController <ApplicationController
   private
 
   def merchant_params
-    params.permit(:name,:address,:city,:state,:zip)
+    defaults = {status: 'enabled'}
+    params.permit(:name,:address,:city,:state,:zip).reverse_merge(defaults)
   end
 
 end
