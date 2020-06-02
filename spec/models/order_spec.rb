@@ -58,5 +58,18 @@ describe Order, type: :model do
     it 'find_order_status' do
       expect(@order_1.find_order_status(@order_1.id)).to eq("packaged")
     end
+
+    it 'packaged_orders' do
+      meg = User.create!({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "9@hotmail.com", password: "3455"})
+      order_1 = Order.create!(name: 'Meg', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: meg.id, status: "pending")
+      order_2 = Order.create!(name: 'Meg', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: meg.id, status: "packaged")
+      order_3 = Order.create!(name: 'Meg', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: meg.id, status: "shipped")
+      order_4 = Order.create!(name: 'Meg', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: meg.id, status: "cancelled")
+
+      expect(Order.pending_orders).to eq([@order_1, order_1])
+      expect(Order.packaged_orders).to eq([order_2])
+      expect(Order.shipped_orders).to eq([order_3])
+      expect(Order.cancelled_orders).to eq([order_4])
+    end
   end
 end
