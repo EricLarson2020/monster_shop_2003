@@ -6,11 +6,9 @@ class OrdersController <ApplicationController
 
   def show
     @order = Order.find(params[:id])
-
   end
 
   def create
-
 
     order = current_user.orders.create(order_params)
     if order.save
@@ -30,6 +28,12 @@ class OrdersController <ApplicationController
     end
   end
 
+  def ship
+    order = Order.find(params[:id])
+    order.update!(status: "shipped")
+    redirect_to "/admin/dashboard"
+  end
+
   def destroy
     order = Order.find(params[:id])
     order_of_id = (params[:id])
@@ -41,10 +45,6 @@ class OrdersController <ApplicationController
       if item.status == "fulfilled"
         found_item = Item.find(item.item_id)
         found_item.inventory += item.quantity
-
-
-
-
       item.status = "unfulfilled"
       found_item.update(update_item_inventory)
       found_item.save
@@ -58,7 +58,6 @@ class OrdersController <ApplicationController
     order.save
     flash[:notice] = "Your order has been cancelled"
     redirect_to "/profile"
-
   end
 
 

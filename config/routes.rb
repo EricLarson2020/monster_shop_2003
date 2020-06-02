@@ -36,7 +36,9 @@ Rails.application.routes.draw do
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
+  patch "/orders/:id/ship", to: "orders#ship"
   delete "/orders/:id", to: "orders#destroy"
+
 
   get "/register", to: "users#new"
 
@@ -54,7 +56,6 @@ Rails.application.routes.draw do
 
   get "profile/orders", to: "profile_orders#index"
   get "profile/orders/:id", to: "profile_orders#show"
-
 
 
   namespace :merchant do

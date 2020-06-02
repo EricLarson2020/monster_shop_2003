@@ -1,21 +1,38 @@
 <h1>Order: <%=@order.id%></h1>
 
+<ul>
+  <li><strong>Creation Date: <%=@order.created_at %></strong></li>
+  <li><strong>Last Updated: <%=@order.updated_at %></strong></li>
+  <li><strong>Current Status: <%=@order.status %></strong></li>
+</ul>
+
+
 <strong>Creation Date: <%=@order.created_at %></strong>
 <strong>Last Updated: <%=@order.updated_at %></strong>
 <strong>Current Status: <%=@order.status %></strong>
 
+
 <% @order.items.each do |item| %>
 <section class = "item-<%=item.id%>">
-  <%= item.name %>
-  <%= item.description %>
-  <%= item.image %>
-  <strong>Item Quantity: <%= item.quantity %></strong>
-  <%= item.price %>
-  <strong> Item Subtotal: $<%= item.subtotal %> </strong>
+<ul>
+  <li><%= item.name %></li>
+  <li><%= item.description %></li>
+  <li><%= item.image %></li>
+  <li><strong>Item Quantity: <%= item.quantity %></strong></li>
+  <li><%= item.price %></li>
+  <li><strong> Item Subtotal: $<%= item.subtotal %> </strong></li>
+</ul>
 </section>
   <% end %>
+
+<ul>
+  <li><strong>Total Quantity: <%=@order.total_quantity%> </strong></li>
+  <li><strong>Grand Total: $<%=@order.grandtotal%> </strong></li>
+</ul>
 
   <strong>Total Quantity: <%=@order.total_quantity%> </strong>
   <strong>Grand Total: $<%=@order.grandtotal%> </strong>
 
-  <%= link_to "Cancel Order", "/orders/#{@order.id}", method: :delete %>
+  <% if @order.status != "shipped" %>
+    <%= link_to "Cancel Order", "/orders/#{@order.id}", method: :delete %>
+  <% end %>

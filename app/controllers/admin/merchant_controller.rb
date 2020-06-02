@@ -2,7 +2,6 @@ class Admin::MerchantController < ApplicationController
   before_action :require_admin
 
   def show
-    # binding.pry
     @merchant = Merchant.find(params[:id])
   end
 

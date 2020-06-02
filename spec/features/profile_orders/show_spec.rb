@@ -77,7 +77,6 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
       order_item_1 = order.item_orders.create!(item: pencil, price: pencil.price, quantity: 2, status: "fulfilled")
       order_item_2 = order.item_orders.create!(item: tire, price: tire.price, quantity: 2)
       order_item_3 = order.item_orders.create!(item: paper, price: paper.price, quantity: 2, status: "fulfilled")
-
       visit "/items/#{pencil.id}"
       expect(page).to have_content("Inventory: 100")
       visit "/items/#{tire.id}"
@@ -99,18 +98,45 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
 
 
   end
+
+  it "when all items in a cart have been fufilled status for all items is pending" do
+
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "2323@hotmail.com", password: "3455"})
+    visit "/login"
+    fill_in :email, with: "2323@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+
+    order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: "pending")
+    order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
+    order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3, status: "unfulfilled")
+
+    visit "/profile/orders/#{order_1.id}"
+    expect(page).to have_content("Current Status: pending")
+  end
+
+  it "when items are fulfilled status is packaged" do
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "2323@hotmail.com", password: "3455"})
+    visit "/login"
+    fill_in :email, with: "2323@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+
+    order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: "pending")
+    order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
+    order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3, status: "fulfilled")
+
+    visit "/profile/orders/#{order_1.id}"
+    expect(page).to have_content("Current Status: packaged")
+  end
+
+
 end
-
-
-# User Story 30, User cancels an order
-#
-# As a registered user
-# When I visit an order's show page
-# I see a button or link to cancel the order
-# When I click the cancel button for an order, the following happens:
-# - Each row in the "order items" table is given a status of "unfulfilled"
-# - The order itself is given a status of "cancelled"
-# - Any item quantities in the order that were previously fulfilled have their quantities returned to their respective merchant's inventory for that item.
-# - I am returned to my profile page
-# - I see a flash message telling me the order is now cancelled
-# - And I see that this order now has an updated status of "cancelled"

@@ -3,10 +3,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :cart
   helper_method :current_user, :current_admin?
-  
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
-# binding.pry
   end
 
   def cart
@@ -16,5 +15,14 @@ class ApplicationController < ActionController::Base
   def current_admin?
     current_user && current_user.admin?
   end
+
+  def admin?
+    role == 2
+  end
+
+  def merchant?
+    role == 1
+  end
+
 
 end
