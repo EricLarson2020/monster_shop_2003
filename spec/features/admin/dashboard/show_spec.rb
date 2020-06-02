@@ -42,7 +42,33 @@ RSpec.describe "Admin Dashboard Page" do
       click_link "#{@user.name}"
     end
       expect(current_path).to eq("/profile")
+  end
 
+  it "an admin can ship pending orders" do
+
+    visit "/login"
+    fill_in :email, with: "email@email.com"
+    fill_in :password, with: "abcd"
+    click_on "Submit"
+
+    expect(current_path).to eq("/admin/dashboard")
+
+    within "#user-order-#{@user.id}" do
+      expect(page).to have_content("#{@user.name}")
+      expect(page).to have_content("#{@order1.id}")
+      expect(page).to have_content("#{@order1.created_at}")
+      expect("#{@order1.status}").to eq("pending")
+      click_link "Ship"
+    end
+
+    within "#user-order-#{@user1.id}" do
+      expect(page).to have_content("#{@user1.name}")
+      expect(page).to have_content("#{@order2.id}")
+      expect(page).to have_content("#{@order2.created_at}")
+      expect("#{@order2.status}").to eq("pending")
+      click_link "Ship"
+    end
+    #And the user can no longer "cancel" the order.
 
   end
 
