@@ -25,7 +25,7 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     click_on "Update Item"
 
     expect(current_path).to eq("/merchant/items")
- 
+
     expect(page).to have_content("New Toy Name")
     expect(page).to have_content("New description")
     expect(page).to have_content("Item has been updated.")

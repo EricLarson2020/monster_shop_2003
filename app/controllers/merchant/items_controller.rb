@@ -1,4 +1,4 @@
-class  Merchant::ItemsController < ApplicationController 
+class  Merchant::ItemsController < ApplicationController
   def index
     @items = current_user.merchant.items
   end
@@ -25,8 +25,11 @@ class  Merchant::ItemsController < ApplicationController
   end
 
   def update
+
     @item = Item.find(params[:item_id])
-    params[:status] ? status_update(params) : item_update(item_params)
+
+    params[:name] ? item_update(item_params) : status_update(@item)
+
   end
 
   def destroy
@@ -52,7 +55,8 @@ class  Merchant::ItemsController < ApplicationController
     end
   end
 
-  def status_update(params)
+  def status_update(item)
+
     if item.active? == true
       item.update(active?: false)
       redirect_to "/merchant/items"
