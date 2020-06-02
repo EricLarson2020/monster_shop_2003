@@ -12,8 +12,7 @@ class Item <ApplicationRecord
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
 
-  
-
+  after_initialize :set_default_image
 
 
   def average_review
@@ -35,6 +34,10 @@ class Item <ApplicationRecord
 
   def subtotal
     quantity * price
+  end
+
+  def set_default_image
+    self.image = "https://cdn.dribbble.com/users/120891/screenshots/4649285/dribble_42.png" if self.image == ""
   end
 
   # def self.top_five
