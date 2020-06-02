@@ -1,1 +1,25 @@
 <h1>Merchant Items</h1>
+<%= link_to "Add New Item", "/merchant/items/new" %>
+<% @items.each do |item| %>
+  <div class="item-<%= item.id %>">
+  <h2><%= item.name %></h2>
+  <img src = "<%= item.image %>" alt:="<%= item.name %>" <br/>
+  <p>Description: <%= item.description %></p>
+  <p>Price: $<%= item.price %></p>
+  <p>Inventory: <%= item.inventory %></p>
+     <%= link_to "Edit Item", "/merchant/items/#{item.id}/edit" %>
+  
+  <% if item.active? %>
+    Status: Active 
+  <%= button_to "Deactivate Item", "/merchant/items/#{item.id}", method: :patch %>
+  <% else %>
+    Status: Inactive 
+  <%= button_to "Activate Item", "/merchant/items/#{item.id}", method: :patch %>
+  
+  <% end %>
+  <% if item.no_orders? %>
+  <%= link_to  "Delete Item", "/merchant/items/#{item.id}", method: :delete, data: {confirm: "Confirm Item Deletion"} %></br>
+  <% end %>
+  
+    </ div>
+  <% end %>
