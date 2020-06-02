@@ -14,20 +14,27 @@ class Admin::MerchantController < ApplicationController
   def update
 
     merchant = Merchant.find(params[:id])
-    merchant.status = "disabled"
-    merchant.items.each do |item|
-
-      item[:active?] = false
-
-      updated_item = item.update(deactivate_item)
-
-    end
-    merchant.update(disable_merchant)
-    merchant.save
-    flash[:notice] = "You have disable merchant #{merchant.id}"
-    redirect_to "/admin/merchants"
+    if merchant.status == "enabled"
+      merchant.status = "disabled"
+      merchant.items.each do |item|
+        item[:active?] = false
+        updated_item = item.update(deactivate_item)
+      end
+      merchant.update(disable_merchant)
+      merchant.save
+      flash[:notice] = "You have disable merchant #{merchant.id}"
+    else
+      merchant.status = "enabled"
+      merchant.items.each do |item|
+        item[:active?] = true
+        updated_item = item.update(deactivate_item)
+      end
+      merchant.update(disable_merchant)
+      merchant.save
+      flash[:notice] = "You have enabled merchant #{merchant.id}"
   end
-
+redirect_to "/admin/merchants"
+end
   private
 
     def deactivate_item

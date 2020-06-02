@@ -126,7 +126,7 @@ end
     end
   end
 
-  it "Can enable a disabled merchant" do
+  it "Can enable a disabled merchant and enable that merchants items" do
   dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210, status: "disabled")
 
   employee = User.create!({ name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "john@hotmail.com", password: "3455", password_confirmation: "3455", role: 1, merchant_id: dog_shop.id})
@@ -147,13 +147,13 @@ end
   fill_in :password, with: "abcd"
   click_on "Submit"
   visit "/admin/merchants"
-  within "merchant-#{dog_shop.id}" do
+  within ".merchant-#{dog_shop.id}" do
   expect(page).to have_content("Merchant Status: disabled")
   click_button ("enable")
   end
   expect(current_path).to eql("/admin/merchants")
   expect(page).to have_content("You have enabled merchant #{dog_shop.id}")
-  within "merchants-#{dog_shop.id}" do
+  within ".merchant-#{dog_shop.id}" do
   expect(page).to have_content("Merchant Status: enabled")
   expect(page).not_to have_button("enable")
   end
