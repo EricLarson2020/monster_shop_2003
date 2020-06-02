@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "As an admin user" do
+
+  #user can login as admin
   it "I can see everything a merchant can see on their dashboard" do
     dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
