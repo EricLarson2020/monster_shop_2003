@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "As an admin user" do
+
   it "I can see everything a merchant can see on their dashboard" do
     dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
@@ -17,12 +18,17 @@ RSpec.describe "As an admin user" do
     order1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
     order1.item_orders.create!(item: tennis_ball, price: tennis_ball.price, quantity: 1)
 
+    # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
-    visit "/login"
-    fill_in :email, with: "email@email.com"
-    fill_in :password, with: "abcd"
-    click_on "Submit"
+    ## For some reason its already logged on so I had to do comment out the stuff below to let it run.
+    # visit "/logout"
+    # visit "/login"
+    # save_and_open_page
+    # fill_in :email, with: "email@email.com"
+    # fill_in :password, with: "abcd"
+    # click_on "Submit"
 
     visit '/merchants'
     click_on "Dog Shop"
@@ -33,6 +39,7 @@ RSpec.describe "As an admin user" do
     expect(page).to have_content("Total Quantity: 2")
     expect(page).to have_content("Total Value: $20")
   end
+
   it "I can disable merchant accounts" do
 
     dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210, status: "enabled")
@@ -51,10 +58,10 @@ RSpec.describe "As an admin user" do
     order1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
     order1.item_orders.create!(item: tennis_ball, price: tennis_ball.price, quantity: 1)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-    visit "/login"
-    fill_in :email, with: "email@email.com"
-    fill_in :password, with: "abcd"
-    click_on "Submit"
+    # visit "/login"
+    # fill_in :email, with: "email@email.com"
+    # fill_in :password, with: "abcd"
+    # click_on "Submit"
     visit "/admin/merchants"
     expect(current_path).to eql("/admin/merchants")
 
@@ -91,10 +98,10 @@ end
     order1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
     order1.item_orders.create!(item: tennis_ball, price: tennis_ball.price, quantity: 1)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-    visit "/login"
-    fill_in :email, with: "bblk@email.com"
-    fill_in :password, with: "abcd"
-    click_on "Submit"
+    # visit "/login"
+    # fill_in :email, with: "bblk@email.com"
+    # fill_in :password, with: "abcd"
+    # click_on "Submit"
     visit "/admin/merchants"
 
     within ".item-#{pull_toy.id}" do
@@ -142,10 +149,10 @@ end
   order1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
   order1.item_orders.create!(item: tennis_ball, price: tennis_ball.price, quantity: 1)
   allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-  visit "/login"
-  fill_in :email, with: "nmnm@email.com"
-  fill_in :password, with: "abcd"
-  click_on "Submit"
+  # visit "/login"
+  # fill_in :email, with: "nmnm@email.com"
+  # fill_in :password, with: "abcd"
+  # click_on "Submit"
   visit "/admin/merchants"
 
 
@@ -185,15 +192,7 @@ end
     expect(page).to have_content("Item Active?: true")
   end
 end
-
 end
-
-
-
-
-
-
-
 
 
 # User Story 40, Admin enables a merchant account

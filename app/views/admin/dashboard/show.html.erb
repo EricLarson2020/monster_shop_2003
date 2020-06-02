@@ -1,0 +1,43 @@
+<h1>Admin Dashboard</h1>
+  <section class=order-list>
+    <h3>Packaged</h3>
+      <section id=packaged>
+       <% @packaged_orders.each do |order| %>
+          <ul>
+          <li><p1><%=link_to order.name, "/profile" %></p1></li>
+          <li><p1><%=order.id  %></p1></li>
+          <li><p1><%=order.created_at  %></p1></li>
+          </ul>
+        <% end %>
+      </section>
+    <h3>Pending</h3>
+      <section id=pending>
+       <% @pending_orders.each do |order| %>
+          <ul>
+          <li><p1><%= link_to order.name, "/profile" %>  <%= link_to "Ship Order #{order.id}", "/orders/#{order.id}/ship", method: :patch %></p1></li>
+          <li><p1><%=order.id  %></p1></li>
+          <li><p1><%=order.created_at  %></p1></li>
+          </ul>
+        <% end %>
+      </section>
+    <h3>Shipped</h3>
+      <section id=shipped>
+       <% @shipped_orders.each do |order| %>
+          <ul>
+          <li><p1><%=link_to order.name, "/profile" %></p1></li>
+          <li><p1><%=order.id  %></p1></li>
+          <li><p1><%=order.created_at  %></p1></li>
+          </ul>
+        <% end %>
+      </section>
+    <h3>Cancelled</h3>
+      <section id=cancelled>
+       <% @cancelled_orders.each do |order| %>
+          <ul>
+          <li><p1><%=link_to order.name, "/profile" %></p1></li>
+          <li><p1><%=order.id  %></p1></li>
+          <li><p1><%=order.created_at  %></p1></li>
+          </ul>
+        <% end %>
+      </section>
+  </section>

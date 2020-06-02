@@ -77,7 +77,6 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
       order_item_1 = order.item_orders.create!(item: pencil, price: pencil.price, quantity: 2, status: "fulfilled")
       order_item_2 = order.item_orders.create!(item: tire, price: tire.price, quantity: 2)
       order_item_3 = order.item_orders.create!(item: paper, price: paper.price, quantity: 2, status: "fulfilled")
-
       visit "/items/#{pencil.id}"
       expect(page).to have_content("Inventory: 100")
       visit "/items/#{tire.id}"
@@ -98,15 +97,47 @@ RSpec.describe "Profile Orders Show Page", type: :feature do
       expect(page).to have_content("Current Status: cancelled")
 
   end
+
+  it "when all items in a cart have been fufilled status for all items is pending" do
+
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "2323@hotmail.com", password: "3455"})
+    visit "/login"
+    fill_in :email, with: "2323@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+
+    order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: "pending")
+    order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
+    order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3, status: "unfulfilled")
+
+    visit "/profile/orders/#{order_1.id}"
+    expect(page).to have_content("Current Status: pending")
+  end
+
+  it "when items are fulfilled status is packaged" do
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "2323@hotmail.com", password: "3455"})
+    visit "/login"
+    fill_in :email, with: "2323@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+
+    order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01', status: "pending")
+    order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
+    order_1.item_orders.create!(item: pencil, price: pencil.price, quantity: 3, status: "fulfilled")
+
+    visit "/profile/orders/#{order_1.id}"
+    expect(page).to have_content("Current Status: packaged")
+  end
+
+
+
 end
 
-# As a merchant employee
-# When I visit an order show page from m  y dashboard
-# I see the recipients name and address that was used to create this order
-# I only see the items in the order that are being purchased from my merchant
-# I do not see any items in the order being purchased from other merchants
-# For each item, I see the following information:
-# - the name of the item, which is a link to my item's show page
-# - an image of the item
-# - my price for the item
-# - the quantity the user wants to purchase

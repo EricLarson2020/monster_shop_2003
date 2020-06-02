@@ -12,7 +12,9 @@ class Cart
 
   def remove_item(item)
     @contents[item] = 0 if !@contents[item]
-    @contents[item] -= 1
+    # binding.pry
+    # @contents[item] -= 1
+    @contents.delete(item)
   end
 
   def total_items
@@ -47,9 +49,10 @@ class Cart
 
   def remove_quantity(quantity, item)
     if @contents[item.id.to_s] > 1
-      quantity.times do
-        remove_item(item.id.to_s)
-      end
+        @contents[item.id.to_s] -= quantity
+      # quantity.times do
+      #   remove_item(item.id.to_s)
+      # end
     else
       return false
     end
