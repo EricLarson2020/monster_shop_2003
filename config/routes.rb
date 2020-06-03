@@ -67,13 +67,13 @@ Rails.application.routes.draw do
     root "dashboard#index"
     get "/items", to: "items#index"
     get "/dashboard", to: "dashboard#index"
-    # get "/merchant/dashboard", to: "dashboard#index"
 
   end
 
   namespace :admin do
     # root 'dashboard#index'
     #resources :merchant, only: [:show, :update, :index]
+    root "dashboard#show"
     get "/merchants", to: "merchant#index"
     patch "/merchants/:id/update", to: "merchant#update"
     get "/merchants/:merchant_id/items", to: "items#index"
@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     patch "/merchants/:merchant_id/items/:item_id", to: "items#update"
     get "/merchants/:id", to: "merchant#show"
     get "/dashboard", to: "dashboard#show"
+
   end
 
   resources :logout, only: [:index]
