@@ -42,7 +42,7 @@ RSpec.describe "As an Admin" do
       click_button("Deactivate Item", match: :first)
     end
 
-    expect(current_path).to eq("/merchant/items")
+    expect(current_path).to eq("/admin/merchants/#{dog_shop.id}/items")
     expect(page).to have_content("#{pull_toy.name} is no longer for sale.")
   end
 
@@ -63,7 +63,7 @@ RSpec.describe "As an Admin" do
       click_button("Activate Item", match: :first)
     end
 
-    expect(current_path).to eq("/merchant/items")
+    expect(current_path).to eq("/admin/merchants/#{dog_shop.id}/items")
     expect(page).to have_content("#{tennis_ball.name} is now for sale.")
   end
 

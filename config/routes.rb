@@ -79,6 +79,8 @@ Rails.application.routes.draw do
     delete "/merchants/:merchant_id/items/:item_id", to: "items#destroy"
     post "/merchants/:merchant_id/items", to: 'items#create'
     get "/merchants/:merchant_id/items/new", to: "items#new"
+    get "/merchants/:merchant_id/items/:item_id/edit", to: 'items#edit'
+    patch "/merchants/:merchant_id/items/:item_id", to: "items#update"
     get "/merchants/:id", to: "merchant#show"
     get "/dashboard", to: "dashboard#show"
   end

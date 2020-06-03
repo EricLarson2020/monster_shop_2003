@@ -22,7 +22,6 @@ class Admin::ItemsController < Admin::BaseController
   def create
     @merchant = Merchant.find(params[:merchant_id])
     @item = @merchant.items.create(item_params)
-
     if @item.save
       flash[:notice] = "#{@item.name} has been saved."
       redirect_to "/admin/merchants/#{@merchant.id}/items"
@@ -32,10 +31,48 @@ class Admin::ItemsController < Admin::BaseController
     end
   end
 
+  def edit
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.find(params[:item_id])
+  end
+
+  def update
+      @item = Item.find(params[:item_id])
+
+    params[:name] ? item_update(item_params) : status_update(@item)
+
+  end
+
 
   private
 
   def item_params
     params.permit(:name, :description, :price, :inventory, :image)
+  end
+
+  def item_update(item_params)
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.find(params[:item_id])
+    @item.update(item_params)
+    if @item.save
+      flash[:notice] = "Item has been updated."
+      redirect_to "/admin/merchants/#{@merchant.id}/items"
+    else
+      flash[:notice] = @item.errors.full_messages.to_s
+      redirect_to "/admin/merchants/#{@merchant.id}/items/#{@item.id}/edit"
+    end
+  end
+
+  def status_update(item)
+    @merchant = Merchant.find(params[:merchant_id])
+    if item.active? == true
+      item.update(active?: false)
+      redirect_to "/admin/merchants/#{@merchant.id}/items"
+      flash[:notice] = "#{item.name} is no longer for sale."
+    elsif item.active? == false
+      item.update(active?: true)
+      redirect_to "/admin/merchants/#{@merchant.id}/items"
+      flash[:notice] = "#{item.name} is now for sale."
+    end
   end
 end
