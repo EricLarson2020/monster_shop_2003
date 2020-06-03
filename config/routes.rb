@@ -83,6 +83,8 @@ Rails.application.routes.draw do
     patch "/merchants/:merchant_id/items/:item_id", to: "items#update"
     get "/merchants/:id", to: "merchant#show"
     get "/dashboard", to: "dashboard#show"
+
+    get "/users", to: "users#index"
   end
 
   resources :logout, only: [:index]
