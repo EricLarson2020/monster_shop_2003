@@ -75,6 +75,10 @@ Rails.application.routes.draw do
     #resources :merchant, only: [:show, :update, :index]
     get "/merchants", to: "merchant#index"
     patch "/merchants/:id/update", to: "merchant#update"
+    get "/merchants/:merchant_id/items", to: "items#index"
+    delete "/merchants/:merchant_id/items/:item_id", to: "items#destroy"
+    post "/merchants/:merchant_id/items", to: 'items#create'
+    get "/merchants/:merchant_id/items/new", to: "items#new"
     get "/merchants/:id", to: "merchant#show"
     get "/dashboard", to: "dashboard#show"
   end
