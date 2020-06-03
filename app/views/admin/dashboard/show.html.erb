@@ -1,6 +1,6 @@
 <h1>Admin Dashboard</h1>
   <section class=order-list>
-    <h3>Packaged</h3>
+    <h3><center>Packaged</center></h3>
       <section id=packaged>
        <% @packaged_orders.each do |order| %>
           <ul>
@@ -10,7 +10,7 @@
           </ul>
         <% end %>
       </section>
-    <h3>Pending</h3>
+    <h3><center>Pending</center></h3>
       <section id=pending>
        <% @pending_orders.each do |order| %>
           <ul>
@@ -20,7 +20,7 @@
           </ul>
         <% end %>
       </section>
-    <h3>Shipped</h3>
+    <h3><center>Shipped</center></h3>
       <section id=shipped>
        <% @shipped_orders.each do |order| %>
           <ul>
@@ -30,7 +30,7 @@
           </ul>
         <% end %>
       </section>
-    <h3>Cancelled</h3>
+    <h3><center>Cancelled</center></h3>
       <section id=cancelled>
        <% @cancelled_orders.each do |order| %>
           <ul>
