@@ -32,7 +32,6 @@ RSpec.describe "Admin Users Index Page" do
         expect(page).to have_link("Sarah")
         expect(page).to have_no_content(user2.name)
       end
-      save_and_open_page
     end
   end
 end
