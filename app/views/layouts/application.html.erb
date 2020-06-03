@@ -19,7 +19,9 @@
        <%= "Logged in as #{current_user.name}" %> <br>
        <%= link_to "Profile Page", "/profile" %>
        <%= link_to  "logout", "/logout" %>
-       <%= link_to "Dashboard", 'merchant/dashboard' %>
+       <% if current_uri != @dash_uri %>
+        <%= link_to "Dashboard", 'merchant/dashboard' %>
+       <% end %>
      <% elsif current_user %>
        <%= "Logged in as #{current_user.name}" %> <br>
        <%= link_to "Profile Page", "/profile" %>
