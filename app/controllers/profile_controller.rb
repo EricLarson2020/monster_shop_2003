@@ -1,5 +1,7 @@
 class ProfileController < ApplicationController
 
+  before_action :require_user
+
   def index
     @user = current_user
   end
@@ -22,6 +24,11 @@ class ProfileController < ApplicationController
   end
 
   private
+
+  def require_user
+   render file: "/public/404" unless current_user
+  end
+
   def user_params
     params.permit(:name, :email, :address, :city, :state, :zip)
   end

@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
     current_user && current_user.merchant?
   end
 
+
   # def admin?
   #   role == 2
   # end
