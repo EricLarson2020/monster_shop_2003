@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     get "/dashboard", to: "dashboard#show"
 
     get "/users", to: "users#index"
+    get "/users/:user_id", to: "users#show"
   end
 
   resources :logout, only: [:index]

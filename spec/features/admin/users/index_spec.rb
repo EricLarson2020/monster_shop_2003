@@ -20,7 +20,7 @@ RSpec.describe "Admin Users Index Page" do
       within(".user-#{user.id}") do
         expect(page).to have_content(user.name)
         expect(page).to have_content(user.created_at)
-        expect(page).to have_content(user.role)
+        expect(page).to have_content(user.role.capitalize)
         expect(page).to have_link("Jill")
         expect(page).to have_no_content(user1.name)
       end
@@ -28,7 +28,7 @@ RSpec.describe "Admin Users Index Page" do
       within(".user-#{user1.id}") do
         expect(page).to have_content(user1.name)
         expect(page).to have_content(user1.created_at)
-        expect(page).to have_content(user1.role)
+        expect(page).to have_content(user1.role.capitalize)
         expect(page).to have_link("Sarah")
         expect(page).to have_no_content(user2.name)
       end
