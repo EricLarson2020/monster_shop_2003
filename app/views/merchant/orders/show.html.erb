@@ -1,0 +1,12 @@
+<strong>Order Name: <%=@order.name%></strong></br>
+<strong>Order Address: <%=@order.address%></strong></br>
+
+<%  @items.each do |item| %>
+  <section class = "item-<%=item.id%>">
+<p>Item Name: <%= link_to item.name, "/items/#{item.id}" %></p>
+<img src = "<%= item.image %>" alt:="<%= item.name %>" </br>
+<%= item.image %>
+<p>Item Price: <%=item.price %></br>
+<p>Item Quantity: <%=item.find_quantity %></br>
+</section>
+  <% end %>

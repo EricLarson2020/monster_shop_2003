@@ -24,8 +24,8 @@ RSpec.describe "As a merchant employee, when I visit my orders show page" do
       click_link "#{order1.id}"
     end
     expect(current_path).to eql("/merchant/orders/#{order1.id}")
-    expect(page).to have_content(dog_shop.name)
-    expect(page).to have_content(dog_shop.address)
+    expect(page).to have_content(order1.name)
+    expect(page).to have_content(order1.address)
     within(".item-#{pull_toy.id}") do
       expect(page).to have_content(pull_toy.name)
       expect(page).to have_content(pull_toy.image)
@@ -49,7 +49,7 @@ RSpec.describe "As a merchant employee, when I visit my orders show page" do
       expect(page).to have_content(itemorder_3.quantity)
       click_link(racket.name)
     end
-    expect(current_path).to eql("/items/#{item.id}")
+    expect(current_path).to eql("/items/#{racket.id}")
 
   end
 end
