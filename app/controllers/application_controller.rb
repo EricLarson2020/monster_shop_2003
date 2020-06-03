@@ -2,10 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :cart
-  helper_method :current_user, :current_admin?
+  helper_method :current_user, :current_admin?, :current_merchant?
 
   def current_user
-
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
@@ -21,15 +20,12 @@ class ApplicationController < ActionController::Base
     current_user && current_user.merchant?
   end
 
-
-#   def admin?
-#     role == 2
-#   end
-
-#   def merchant?
-#     role == 1
-#   end
-
-
+  # def admin?
+  #   role == 2
+  # end
+  #
+  # def merchant?
+  #   role == 1
+  # end
 
 end
