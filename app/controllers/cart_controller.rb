@@ -44,9 +44,8 @@ class CartController < ApplicationController
 
   private
     def require_mercant_or_user
-     render file: "/public/404" unless current_user.admin? == false
-   end
-
-
-
+      if current_admin?
+       render file: "/public/404"
+      end
+    end
 end
