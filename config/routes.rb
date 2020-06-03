@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   namespace :admin do
     # root 'dashboard#index'
     #resources :merchant, only: [:show, :update, :index]
+    root "dashboard#show"
     get "/merchants", to: "merchant#index"
     patch "/merchants/:id/update", to: "merchant#update"
     get "/merchants/:merchant_id/items", to: "items#index"
@@ -84,8 +85,10 @@ Rails.application.routes.draw do
     get "/merchants/:id", to: "merchant#show"
     get "/dashboard", to: "dashboard#show"
 
+
     get "/users", to: "users#index"
     get "/users/:user_id", to: "users#show"
+
   end
 
   resources :logout, only: [:index]

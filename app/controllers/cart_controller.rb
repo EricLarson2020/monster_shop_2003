@@ -1,4 +1,7 @@
 class CartController < ApplicationController
+  before_action :require_mercant_or_user
+
+
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
@@ -39,5 +42,10 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
-
+  private
+    def require_mercant_or_user
+      if current_admin?
+       render file: "/public/404"
+      end
+    end
 end

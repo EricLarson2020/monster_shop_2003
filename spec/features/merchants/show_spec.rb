@@ -77,5 +77,19 @@ RSpec.describe 'merchant show page', type: :feature do
       expect(current_path).to eq("/merchant/dashboard")
     end
 
+    it "Dashboard link does not show up while in dashboard" do
+      visit "/login"
+
+      fill_in :email, with: @merchant.email
+      fill_in :password, with: @merchant.password
+      click_on "Submit"
+
+      within '.topnav' do
+        expect(page).to_not have_content("Dashboard")
+      end
+
+      expect(current_path).to eq("/merchant/dashboard")
+    end
+
   end
 end

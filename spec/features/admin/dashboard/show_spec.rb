@@ -98,4 +98,68 @@ RSpec.describe "Admin Dashboard Page" do
     expect(page).to have_content("Cancel")
   end
 
+  it "only admin can see link to merchant dashboard in nav bar" do
+    visit "/login"
+
+    fill_in :email, with: @admin.email
+    fill_in :password, with: @admin.password
+    click_on "Submit"
+
+    visit "/"
+    within '.topnav' do
+      expect(page).to have_content("Dashboard")
+    end
+
+    visit "/admin"
+    within '.topnav' do
+      expect(page).to have_content("Dashboard")
+    end
+
+    visit "logout"
+    visit "login"
+
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on "Submit"
+
+    visit "/"
+    within '.topnav' do
+      expect(page).to_not have_content("Dashboard")
+    end
+
+    visit "/merchants"
+    within '.topnav' do
+      expect(page).to_not have_content("Dashboard")
+    end
+  end
+
+  it "admin can use dashboard link to navigate to dashboard" do
+    visit "/login"
+
+    fill_in :email, with: @admin.email
+    fill_in :password, with: @admin.password
+    click_on "Submit"
+    visit "/"
+
+    within '.topnav' do
+      click_on "Dashboard"
+    end
+
+    expect(current_path).to eq("/admin/dashboard")
+  end
+
+  it "Dashboard link does not show up while in dashboard" do
+    visit "/login"
+
+    fill_in :email, with: @admin.email
+    fill_in :password, with: @admin.password
+    click_on "Submit"
+
+    within '.topnav' do
+      expect(page).to_not have_content("Dashboard")
+    end
+
+    expect(current_path).to eq("/admin/dashboard")
+  end
+
 end
