@@ -9,7 +9,7 @@ class  Merchant::DashboardController < ApplicationController
   end
 
   def index
-    @dash_uri = "/merchant/dashboard"
+    @merchant_dash_uri = "/merchant/dashboard"
     @merchant = current_user.merchant
   end
 
