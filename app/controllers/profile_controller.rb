@@ -4,6 +4,9 @@ class ProfileController < ApplicationController
 
   def index
     @user = current_user
+    if current_admin?
+      @user = User.find(params[:id])
+    end
   end
 
   def edit

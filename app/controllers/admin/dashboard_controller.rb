@@ -11,6 +11,7 @@ class Admin::DashboardController < ApplicationController
       @shipped_orders = Order.shipped_orders
       @cancelled_orders = Order.cancelled_orders
       @admin_dash_uri = '/admin/dashboard'
+      # binding.pry
     end
 
     private
