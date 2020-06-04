@@ -14,7 +14,9 @@
       <%= link_to "Welcome Page", "/" %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
+      <% if current_admin? != true  %>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <% end %>
       <% if current_merchant?  %>
        <%= "Logged in as #{current_user.name}" %> <br>
        <%= link_to "Profile Page", "/profile" %>
