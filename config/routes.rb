@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     # root 'dashboard#index'
     #resources :merchant, only: [:show, :update, :index]
     root "dashboard#show"
+    get "/profile", to: "profile#index"
     get "/merchants", to: "merchant#index"
     patch "/merchants/:id/update", to: "merchant#update"
     get "/merchants/:merchant_id/items", to: "items#index"

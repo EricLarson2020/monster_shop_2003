@@ -3,9 +3,11 @@ class ProfileController < ApplicationController
   before_action :require_user
 
   def index
-    @user = current_user
-    if current_admin?
+    # binding.pry
+    if params[:id]
       @user = User.find(params[:id])
+    else
+      @user = current_user
     end
   end
 
