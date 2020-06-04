@@ -1,0 +1,20 @@
+<strong>Order Name: <%=@order.name%></strong></br>
+<strong>Order Address: <%=@order.address%></strong></br>
+
+<%  @items.each do |item| %>
+  <section class = "item-<%=item.id%>">
+    <% if item.check_status != "fulfilled" && item.find_quantity <= item.inventory %>
+    <%= link_to "Fulfill", "/merchant/items/#{item.id}/orders/#{@order.id}", method: :patch %>
+    <% elsif item.check_status != "fulfilled" && item.inventory < item.find_quantity %>
+    <strong>Item can not be fulfilled</strong>
+    <% end %>
+    <% if item.check_status == "fulfilled" %>
+    <p>"Item Fulfilled"<p>
+    <% end %>
+<p>Item Name: <%= link_to item.name, "/items/#{item.id}" %></p>
+<img src = "<%= item.image %>" alt:="<%= item.name %>" </br>
+<%= item.image %>
+<p>Item Price: <%=item.price %></br>
+<p>Item Quantity: <%=item.find_quantity %></br>
+</section>
+  <% end %>

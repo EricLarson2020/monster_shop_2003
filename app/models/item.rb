@@ -41,6 +41,17 @@ class Item <ApplicationRecord
     self.image = "https://cdn.dribbble.com/users/120891/screenshots/4649285/dribble_42.png" if self.image == ""
   end
 
+  def find_quantity
+    item_orders.joins(:item).pluck(:quantity).first
+  end
+
+  def check_status
+    item_orders.joins(:item).pluck(:status).first
+  end
+
+
+
+
   # def self.top_five
   #   # items = Item.left_outer_joins(:order)
   #   binding.pry
