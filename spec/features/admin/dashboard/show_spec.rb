@@ -14,11 +14,11 @@ RSpec.describe "Admin Dashboard Page" do
     @tennis_ball = @dog_shop.items.create!(name: "Tennis Ball", description: "Great ball!", price: 5, image: "http://lovencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 40)
     @racket = @dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10)
 
-    @order1 = Order.create!(name: "Jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
-    @orderp = Order.create!(name: "John", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
-    @order2 = Order.create!(name: "Eric", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "packaged")
-    @order3 = Order.create!(name: "Whitney", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "shipped")
-    @order4 = Order.create!(name: "Cory", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user2, status: "cancelled")
+    @order1 = Order.create!(name: "Jill", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
+    @orderp = Order.create!(name: "Jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user, status: "pending")
+    @order2 = Order.create!(name: "Sarah", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "packaged")
+    @order3 = Order.create!(name: "Sarah", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user1, status: "shipped")
+    @order4 = Order.create!(name: "Kevin", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: @user2, status: "cancelled")
 
     @order1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 2)
     @order1.item_orders.create!(item: @tennis_ball, price: @tennis_ball.price, quantity: 1)
@@ -44,7 +44,7 @@ RSpec.describe "Admin Dashboard Page" do
       expect(page).to have_content("#{@order2.created_at}")
       click_link "#{@order2.name}"
     end
-      expect(current_path).to eq("/profile")
+      expect(current_path).to eq("/profile/#{@order2.user.id}/admin")
 
       visit "/admin/dashboard"
 
@@ -56,7 +56,7 @@ RSpec.describe "Admin Dashboard Page" do
       expect(page).to_not have_content("#{@order2.id}")
       click_link "#{@order1.name}"
     end
-      expect(current_path).to eq("/profile")
+      expect(current_path).to eq("/profile/#{@order1.user.id}/admin")
 
   end
 
