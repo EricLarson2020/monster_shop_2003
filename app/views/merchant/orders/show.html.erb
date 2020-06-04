@@ -3,6 +3,12 @@
 
 <%  @items.each do |item| %>
   <section class = "item-<%=item.id%>">
+    <% if item.check_status != "filled" && item.find_quantity <= item.inventory %>
+    <%= link_to "Fulfill", "/merchant/items/#{item.id}/orders/#{@order.id}", method: :patch %>
+    <% end %>
+    <% if item.check_status == "fulfilled" %>
+    <p>"Item Fulfilled"<p>
+    <% end %>
 <p>Item Name: <%= link_to item.name, "/items/#{item.id}" %></p>
 <img src = "<%= item.image %>" alt:="<%= item.name %>" </br>
 <%= item.image %>

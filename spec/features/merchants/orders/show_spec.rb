@@ -69,12 +69,17 @@ RSpec.describe "As a merchant employee, when I visit my orders show page" do
     fill_in :password, with: "3455"
     click_on "Submit"
     visit  "/merchant/orders/#{order1.id}"
-    within "item-#{pull_toy.id}" do
+    within ".item-#{pull_toy.id}" do
+      expect(page).not_to have_content("Item Fulfilled")
       click_link "Fulfill"
     end
     expect(current_path).to eql("/merchant/orders/#{order1.id}")
     expect(page).to have_text("You have fulfilled an item request")
-
+    within ".item-#{pull_toy.id}" do
+      expect(page).to have_content("Item Fulfilled")
+    end
+    visit "/items/#{pull_toy.id}"
+    expect(page).to have_content("Inventory: 30")
   end
 end
 # User Story 50, Merchant fulfills part of an order

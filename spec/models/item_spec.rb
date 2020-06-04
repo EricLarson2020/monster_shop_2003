@@ -82,7 +82,7 @@ describe Item, type: :model do
       racket = dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10)
       order1 = Order.create!(name: "jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: merchant)
       itemorder_1 = order1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2, status: "unfulfilled")
-      expect(pull_toy.check_status).to eql(fulfilled)
+      expect(pull_toy.check_status).to eql("unfulfilled")
     end
   end
 end

@@ -45,6 +45,12 @@ class Item <ApplicationRecord
     item_orders.joins(:item).pluck(:quantity).first
   end
 
+  def check_status
+    item_orders.joins(:item).pluck(:status).first
+  end
+
+
+
 
   # def self.top_five
   #   # items = Item.left_outer_joins(:order)
