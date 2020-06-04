@@ -26,9 +26,11 @@ describe Order, type: :model do
       jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "999@hotmail.com", password: "3455"})
       @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id, status: "pending")
       @order_2 = Order.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: jack.id, created_at: '2010-12-01 00:00:01', updated_at: '2011-12-01 00:00:01')
+      @order_3 = Order.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: jack.id, status: "pending")
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, status: "fulfilled")
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, status: "fulfilled")
       @order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 4, status: "fulfilled")
+      @order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 4, status: "unfulfilled")
 
     end
     it 'grandtotal' do
@@ -43,6 +45,10 @@ describe Order, type: :model do
       expect(@order_1.find_order_status(@order_1.id)).to eq("packaged")
     end
 
+    it 'find_order_status' do
+      expect(@order_3.find_order_status(@order_3.id)).to eq("pending")
+    end
+
     it 'packaged_orders' do
       meg = User.create!({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "9@hotmail.com", password: "3455"})
       order_1 = Order.create!(name: 'Meg', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: meg.id, status: "pending")
@@ -50,7 +56,7 @@ describe Order, type: :model do
       order_3 = Order.create!(name: 'Meg', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: meg.id, status: "shipped")
       order_4 = Order.create!(name: 'Meg', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204, user_id: meg.id, status: "cancelled")
 
-      expect(Order.pending_orders).to eq([@order_1, order_1])
+      expect(Order.pending_orders).to eq([@order_1, @order_3, order_1,])
       expect(Order.packaged_orders).to eq([order_2])
       expect(Order.shipped_orders).to eq([order_3])
       expect(Order.cancelled_orders).to eq([order_4])
