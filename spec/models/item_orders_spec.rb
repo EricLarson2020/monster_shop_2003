@@ -13,6 +13,8 @@ describe ItemOrder, type: :model do
     it {should belong_to :order}
   end
 
+
+
   describe 'instance methods' do
     it 'subtotal' do
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -20,11 +22,8 @@ describe ItemOrder, type: :model do
       jack = User.create ({name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "777@hotmail.com", password: "3455"})
       order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: jack.id)
       item_order_1 = order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
-
       expect(item_order_1.subtotal).to eq(200)
     end
-
-
   end
 
 end
