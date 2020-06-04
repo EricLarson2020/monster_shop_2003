@@ -81,18 +81,37 @@ RSpec.describe "As a merchant employee, when I visit my orders show page" do
     visit "/items/#{pull_toy.id}"
     expect(page).to have_content("Inventory: 30")
   end
+
+  it "cannot fulfill items if inventory is to low" do
+    dog_shop = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+    merchant = User.create!({ name: "Jack", address: "333 Jack Blvd", city: "Denver", state: "Colorado", zip: 83243, email: "moresales@hotmail.com", password: "3455", password_confirmation: "3455", role: 1, merchant_id: dog_shop.id})
+    pull_toy = dog_shop.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 1)
+    tennis_ball = dog_shop.items.create!(name: "Tennis Ball", description: "Great ball!", price: 5, image: "http://lovencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 40)
+    racket = dog_shop.items.create!(name: "Tennis Racket", description: "Great Tennis Racket!", price: 200, image: "http://lvencaretoys.com/image/cache/dog/tu-toy-dog-pull-9010_2-800x800.jpg", inventory: 10)
+    order1 = Order.create!(name: "jack", address: "1234 something", city: "Den", state: "CO", zip: 12344, user: merchant)
+    itemorder_1 = order1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 2)
+    itemorder_2 = order1.item_orders.create!(item: tennis_ball, price: tennis_ball.price, quantity: 1)
+    itemorder_3 = order1.item_orders.create!(item: racket, price: racket.price, quantity: 1)
+    visit "/login"
+    fill_in :email, with: "nosales@hotmail.com"
+    fill_in :password, with: "3455"
+    click_on "Submit"
+
+    visit  "/merchant/orders/#{order1.id}"
+
+    within ".item-#{pull_toy.id}" do
+      expect(page).not_to have_css("Fulfill")
+      expect(page).to have_content("Item can not be fulfilled")
+    end
+
+  end
 end
-# User Story 50, Merchant fulfills part of an order
-#
+
+
+
 # As a merchant employee
 # When I visit an order show page from my dashboard
 # For each item of mine in the order
-# If the user's desired quantity is equal to or less than my current inventory quantity for that item
-# And I have not already "fulfilled" that item:
-# - Then I see a button or link to "fulfill" that item
-# - When I click on that link or button I am returned to the order show page
-# - I see the item is now fulfilled
-# - I also see a flash message indicating that I have fulfilled that item
-# - the item's inventory quantity is permanently reduced by the user's desired quantity
-#
-# If I have already fulfilled this item, I see text indicating such.
+# If the user's desired quantity is greater than my current inventory quantity for that item
+# Then I do not see a "fulfill" button or link
+# Instead I see a notice next to the item indicating I cannot fulfill this item
