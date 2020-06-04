@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   post "/users/new", to: "users#create"
 
   get "/profile", to: "profile#index"
+  get "/profile/:id/admin", to: "profile#index"
   get "/profile/:id/edit", to: "profile#edit"
   patch "/profile/:id", to: "profile#update"
 
