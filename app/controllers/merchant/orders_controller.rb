@@ -17,13 +17,13 @@ class Merchant::OrdersController < ApplicationController
 
   private
 
-  def item_params
-      params.permit(:name, :description, :price, :inventory, :image)
-  end
-
-  def item_order_params
-    params.permit(:status)
-  end
+  # def item_params
+  #     params.permit(:name, :description, :price, :inventory, :image)
+  # end
+  #
+  # def item_order_params
+  #   params.permit(:status)
+  # end
 
   def item_inventory_update
     item = Item.find(params[:item_id])

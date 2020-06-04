@@ -76,6 +76,7 @@ RSpec.describe "Merchant Dashboard Page" do
 
       click_on "View Merchant Items"
       expect(current_path).to eq("/merchant/items")
+      
     end
   end
 end
