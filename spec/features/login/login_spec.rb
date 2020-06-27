@@ -194,6 +194,6 @@ RSpec.describe "Register Index Page", type: :feature do
     within ".topnav" do
       click_link "register"
     end
-    expect(current_path).to eql("/register")
+    expect(current_path).to eql("/users/register")
   end
 end

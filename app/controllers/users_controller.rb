@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
     if User.where(email:@user.email) != []
       flash[:error] = "Email has already been taken"
-      redirect_to "/register"
+      redirect_to "/users/register"
     elsif @user.save
       session[:id] = @user.id
       session[:user_id] = @user.id
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       redirect_to "/profile"
     else
       flash[:notice] = @user.errors.full_messages.join(". ").to_s
-      redirect_to "/register"
+      redirect_to "/users/register"
     end
   end
 

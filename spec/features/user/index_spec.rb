@@ -6,7 +6,7 @@ RSpec.describe "Register Index Page", type: :feature do
     within "nav" do
       click_link "register"
     end
-    expect(current_path).to eql("/register")
+    expect(current_path).to eql("/users/register")
     fill_in :name, with: "Bob"
     fill_in :address, with: "333 Blvd"
     fill_in :city, with: "Denver"
@@ -25,7 +25,7 @@ RSpec.describe "Register Index Page", type: :feature do
   within "nav" do
     click_link "register"
   end
-  expect(current_path).to eql("/register")
+  expect(current_path).to eql("/users/register")
 
   fill_in :address, with: "333 Blvd"
   fill_in :city, with: "Denver"
@@ -35,14 +35,14 @@ RSpec.describe "Register Index Page", type: :feature do
   fill_in :password, with: "1234"
   fill_in :password_confirmation, with: "1234"
   click_button "Create User"
-  expect(current_path).to eql("/register")
+  expect(current_path).to eql("/users/register")
   expect(page).to have_content("Name can't be blank")
 
   visit "/merchants"
   within "nav" do
     click_link "register"
   end
-  expect(current_path).to eql("/register")
+  expect(current_path).to eql("/users/register")
   fill_in :name, with: "Bob"
   fill_in :address, with: "333 Blvd"
   fill_in :city, with: "Denver"
@@ -51,7 +51,7 @@ RSpec.describe "Register Index Page", type: :feature do
   fill_in :email, with: "bob@gz.com"
   fill_in :password_confirmation, with: "1234"
   click_on "Create User"
-  expect(current_path).to eql("/register")
+  expect(current_path).to eql("/users/register")
 
   expect(page).to have_content("Password can't be blank")
 end
@@ -70,7 +70,7 @@ end
     fill_in :password, with: "1234"
     fill_in :password_confirmation, with: "5678"
     click_button "Create User"
-    expect(current_path).to eq("/register")
+    expect(current_path).to eq("/users/register")
     expect(page).to have_content("Password confirmation doesn't match Password")
   end
 
@@ -92,7 +92,7 @@ end
     within "nav" do
       click_link "register"
     end
-    expect(current_path).to eql("/register")
+    expect(current_path).to eql("/users/register")
     fill_in :name, with: "Bob"
     fill_in :address, with: "333 Blvd"
     fill_in :city, with: "Denver"
@@ -102,7 +102,7 @@ end
     fill_in :password, with: "1234"
     fill_in :password_confirmation, with: "1234"
     click_button "Create User"
-    expect(current_path).to eql("/register")
+    expect(current_path).to eql("/users/register")
     expect(page).to have_content("Email has already been taken")
   end
 
