@@ -34,7 +34,7 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     fill_in :email, with: "john@hotmail.com"
     fill_in :password, with: "3455"
     click_on "Submit"
-    visit merchant_items_path
+    visit '/merchant/items'
 
     within(".item-#{pull_toy.id}") do
       click_button("Deactivate Item", match: :first)
@@ -55,7 +55,8 @@ RSpec.describe "As a merchant employee, when I visit my items page" do
     fill_in :email, with: "john@hotmail.com"
     fill_in :password, with: "3455"
     click_on "Submit"
-    visit merchant_items_path
+
+    visit '/merchant/items'
 
     within(".item-#{tennis_ball.id}") do
       click_button("Activate Item", match: :first)

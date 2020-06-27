@@ -52,7 +52,7 @@
   <p>Total: <%= number_to_currency(cart.total) %></p>
 
   <% if !current_user %>
-    <strong>Please <%= link_to "Register", "/register" %> or <%= link_to "Login", "/login" %> to finish the checkout process</strong>
+    <strong>Please <%= link_to "Register", "/users/register" %> or <%= link_to "Login", "/login" %> to finish the checkout process</strong>
 
 
   <% else %>

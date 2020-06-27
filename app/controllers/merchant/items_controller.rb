@@ -1,7 +1,7 @@
 class  Merchant::ItemsController < ApplicationController
   def index
 
-    
+
     @items = current_user.merchant.items
   end
 
@@ -23,19 +23,20 @@ class  Merchant::ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:item_id])
+
+    @item = Item.find(params[:id])
   end
 
   def update
 
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
 
     params[:name] ? item_update(item_params) : status_update(@item)
 
   end
 
   def destroy
-    item = Item.find(params[:item_id])
+    item = Item.find(params[:id])
     flash[:success] = "#{item.name} has been deleted." if item.destroy
     redirect_to "/merchant/items"
   end

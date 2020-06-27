@@ -42,7 +42,7 @@ RSpec.describe 'Cart show' do
       expect(page).to have_link("Register")
       expect(page).to have_link("Login")
       click_link "Register"
-      expect(current_path).to eql("/register")
+      expect(current_path).to eql("/users/register")
       visit "/cart"
       click_link "Login"
       expect(current_path).to eql("/login")

@@ -1,4 +1,4 @@
-class Admin::MerchantController < ApplicationController
+class Admin::MerchantsController < ApplicationController
   before_action :require_admin
 
   def show
